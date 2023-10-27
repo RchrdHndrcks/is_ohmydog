@@ -1,10 +1,9 @@
 <p class="home_bar">
   Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
   <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
-  <%= link_to "Mis turnos", list_appointments_path(1), class: "button" %>  #<!-- 1 es el id del usuario, cuando tengamos logeado usar @user_id -->
+  <%= link_to "Mis turnos", appointments_path(1), class: "button" %>
 </p> 
 <h1 class="home_title">Oh My Dog</h1>
-
 
 <h1>Lista de Citas</h1>
 
@@ -15,7 +14,7 @@
       <th>ID</th>
       <th>Usuario</th>
       <th>Horario</th>
-      <th>Acciones</th>
+      <th>Fecha</th>
     </tr>
   </thead>
   <tbody>
@@ -25,7 +24,11 @@
         <td><%= appointment.user.name %></td>
         <td><%= appointment.timeSlot %></td>
         <td>
-          <%= link_to "Asignar Fecha", edit_appointment_path(appointment) %>
+          <% if appointment.appointment_date.present? %>
+            <%= appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') %>
+          <% else %>
+            <%= link_to "Asignar Fecha", edit_appointment_path(appointment) %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -66,7 +69,7 @@
       <tr>
         <td><%= appointment.id %></td>
         <td><%= appointment.user.name %></td>
-        <td><%= appointment.fecha %></td>
+        <td><%= appointment.appointment_date.present? ? appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') : "No asignada" %></td>
       </tr>
     <% end %>
   </tbody>

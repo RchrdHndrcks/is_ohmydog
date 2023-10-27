@@ -27,7 +27,24 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
   end
 
- def list
+  def show
+    @appointment = Appointment.find(params[:id])
+    respond_to do |format|
+      format.html # Esta línea indica que se utilizará la vista show.html.erb
+    end
+  end
+
+  def update
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(appointment_params)
+      redirect_to @appointment, notice: 'Cita actualizada exitosamente.'
+    else
+      render 'edit'
+    end
+  end
+
+
+ def index
   @user_id = 1 # cuando tengamos usuario logeado poner current_user.id
   @appointments = Appointment.where(user_id: @user_id)
 
@@ -44,7 +61,7 @@ end
   private
 
   def appointment_params
-    params.require(:appointment).permit(:timeSlot, :user_id)
+    params.require(:appointment).permit(:timeSlot, :user_id, :appointment_date)
   end
 
   def confirmation

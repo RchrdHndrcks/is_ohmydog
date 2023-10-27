@@ -1,0 +1,8 @@
+<h1>Detalles de la Cita</h1>
+
+<p><strong>ID del Turno:</strong> <%= @appointment.id %></p>
+<p><strong>ID del Usuario:</strong> <%= @appointment.user_id %></p>
+<p><strong>Fecha de la Cita:</strong> <%= @appointment.appointment_date %></p>
+<!-- Agrega más detalles de la cita según tus necesidades -->
+
+<%= link_to 'Volver', appointments_path, class: 'button' %>

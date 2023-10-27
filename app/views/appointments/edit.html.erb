@@ -1,0 +1,16 @@
+<h1>Editar Cita</h1>
+
+<%= form_for @appointment do |f| %>
+  <div class="field">
+    <%= f.label :appointment_date %>
+    <%= f.datetime_field :appointment_date, id: "datetimepicker" %>
+  </div>
+
+  <%= f.submit "Guardar" %>
+<% end %>
+
+<script>
+  $(function() {
+    $("#datetimepicker").datetimepicker(); // Inicializar el selector de fecha y hora
+  });
+</script>

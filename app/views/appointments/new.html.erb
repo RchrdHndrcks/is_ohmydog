@@ -3,7 +3,7 @@
 <p class="home_bar">
   Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
   <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
-  <%= link_to "Mis turnos", list_appointments_path(1), class: "button" %>  #<!-- 1 es el id del usuario, cuando tengamos logeado usar @user_id -->
+  <%= link_to "Mis turnos", appointments_path(1), class: "button" %>  #<!-- 1 es el id del usuario, cuando tengamos logeado usar @user_id -->
 </p> 
 <h1 class="home_title">Oh My Dog</h1>
 
