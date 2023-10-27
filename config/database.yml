@@ -4,24 +4,8 @@ default: &default
   pool: 5
   host: localhost
   username: omd
-  password: 1234
+  password: omd
 
 development:
   <<: *default
-  database: ohmydog_dev
-
-
-test:
-  <<: *default
-  database: ohmydog_test
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  host: localhost
-  username: omd
-  password: 1234
-
-
-production:
-  <<: *default
-  database: ohmydog_prod
+  database: omd_dev
