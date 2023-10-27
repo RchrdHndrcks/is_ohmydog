@@ -12,6 +12,7 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Usuario</th>
       <th>Horario</th>
       <th>Fecha</th>
     </tr>
@@ -20,6 +21,7 @@
     <% @appointments.where(state: 'en_espera').each do |appointment| %>
       <tr>
         <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
         <td><%= appointment.timeSlot %></td>
         <td>
           <% if appointment.appointment_date.present? %>
@@ -38,6 +40,7 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Usuario</th>
       <th>Horario</th>
     </tr>
   </thead>
@@ -45,6 +48,7 @@
     <% @appointments.where(state: 'rechazado').each do |appointment| %>
       <tr>
         <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
         <td><%= appointment.timeSlot %></td>
       </tr>
     <% end %>
@@ -56,6 +60,7 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Usuario</th>
       <th>Fecha</th>
     </tr>
   </thead>
@@ -63,6 +68,7 @@
     <% @appointments.where(state: 'aceptado').each do |appointment| %>
       <tr>
         <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
         <td><%= appointment.appointment_date.present? ? appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') : "No asignada" %></td>
       </tr>
     <% end %>
