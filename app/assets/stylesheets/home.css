@@ -10,3 +10,33 @@
     padding-bottom: 20px;
     text-align:center;
   }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Cambia esto al color que desees */
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #alert-message {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: none;
+  }
+  
+  #close-alert {
+    background-color: #a94442;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }

@@ -1,0 +1,50 @@
+<!-- app/views/appointment/new.html.erb -->
+
+<p class="home_bar">
+  Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
+  <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
+  <%= link_to "Mis turnos", list_appointments_path(1), class: "button" %>  #<!-- 1 es el id del usuario, cuando tengamos logeado usar @user_id -->
+</p> 
+<h1 class="home_title">Oh My Dog</h1>
+
+<h1>Nuevo Turno</h1>
+
+<% if flash[:alert] %>
+  <div id="alert-message">
+    <%= flash[:alert] %>
+    <button id="close-alert">OK</button>
+  </div>
+<% end %>
+
+<%= form_with(model: @appointment, url: appointments_path, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :timeSlot, "Seleccione un horario" %>
+    <%= form.select :timeSlot, Appointment.timeSlots.keys, prompt: "Seleccione un horario" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id, "id usuario" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Solicitar" %>
+  </div>
+<% end %>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var alertMessage = document.getElementById("alert-message");
+    var closeAlertButton = document.getElementById("close-alert");
+
+    if (alertMessage) {
+      alertMessage.style.display = "block";
+
+      closeAlertButton.addEventListener("click", function() {
+        alertMessage.style.display = "none";
+      });
+    }
+  });
+</script>
+

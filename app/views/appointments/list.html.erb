@@ -1,0 +1,75 @@
+<p class="home_bar">
+  Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
+  <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
+  <%= link_to "Mis turnos", list_appointments_path(1), class: "button" %>  #<!-- 1 es el id del usuario, cuando tengamos logeado usar @user_id -->
+</p> 
+<h1 class="home_title">Oh My Dog</h1>
+
+
+<h1>Lista de Citas</h1>
+
+<h2>Turnos en Espera</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Horario</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.where(state: 'en_espera').each do |appointment| %>
+      <tr>
+        <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
+        <td><%= appointment.timeSlot %></td>
+        <td>
+          <%= link_to "Asignar Fecha", edit_appointment_path(appointment) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Turnos Rechazados</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Horario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.where(state: 'rechazado').each do |appointment| %>
+      <tr>
+        <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
+        <td><%= appointment.timeSlot %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Próximos Turnos</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.where(state: 'aceptado').each do |appointment| %>
+      <tr>
+        <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
+        <td><%= appointment.fecha %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Nuevo Turno", new_appointment_path, class: "button" %>
