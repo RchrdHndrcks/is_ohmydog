@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: 192.168.0.23
+  host: localhost
   port: 5433
   username: omd
   password: omd

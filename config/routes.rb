@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   resources :appointments
   get 'appointments/confirmation/:id', to: 'appointments#confirmation', as: 'confirmation_appointment'
   #get 'appointments/show:user_id', to: 'appointments#show', as: 'show_appointment'
-  get 'appointments/list/:user_id', to: 'appointments#list', as: 'list_appointments'
+  #get 'appointments/list/:user_id', to: 'appointments#list', as: 'list_appointments'
 
 end
