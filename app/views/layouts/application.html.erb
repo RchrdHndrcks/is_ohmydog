@@ -10,11 +10,23 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <p class="home_bar">
-  Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
-  <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
-  <%= link_to "Mis turnos", appointments_path(1), class: "button" %>  #<!-- 1 es el id del usuario, cuando tengamos logeado usar @user_id -->
+<p class="home_bar">
+Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
 
+  <% if current_user && !current_user.es_admin %> <!-- Verifica si el usuario existe y no es administrador -->
+  <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
+  <%= link_to "Mis turnos", appointments_path(@user_id), class: "button" %>
+  <% end %>
+  <% if current_user && current_user.es_admin %> <!-- Verifica si el usuario existe y es administrador -->
+  <%= link_to "Turnos", appointments_path(@user_id), class: "button" %>
+  <% end %>
+
+  <% if current_user %> <!-- Verifica si el usuario existe -->
+  <%= link_to "Cerrar sesión", logout_path, method: :delete, class: "button" %>
+  <% else %>
+  <%= link_to "Iniciar sesión", login_path, class: "button" %>
+  <%= link_to "Registrarse", signup_path, class: "button" %>
+  <% end %> 
 </p> 
 
   <body>

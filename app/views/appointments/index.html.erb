@@ -22,7 +22,7 @@
           <% if appointment.appointment_date.present? %>
             <%= appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') %>
           <% else %>
-            <%= link_to "Asignar Fecha", edit_appointment_path(appointment) %>
+            <td> En espera </td>
           <% end %>
         </td>
       </tr>

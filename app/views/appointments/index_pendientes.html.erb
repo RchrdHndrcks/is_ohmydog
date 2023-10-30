@@ -1,0 +1,31 @@
+
+
+<h1>Lista de Citas</h1>
+
+<h2>Turnos en Espera</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Horario</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.where(state: 'en_espera').each do |appointment| %>
+      <tr>
+        <td><%= appointment.id %></td>
+        <td><%= appointment.user.name %></td>
+        <td><%= appointment.timeSlot %></td>
+        <td>
+          <% if appointment.appointment_date.present? %>
+            <%= appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') %>
+          <% else %>
+            <%= link_to "Asignar Fecha", edit_appointment_path(appointment) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
