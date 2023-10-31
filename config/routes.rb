@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #get 'adoption_posts/index', to: 'adoption_posts#index'
+  resources :adoption_posts
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
