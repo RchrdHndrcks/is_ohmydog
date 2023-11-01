@@ -16,11 +16,6 @@
     <%= form.select :timeSlot, Appointment.timeSlots.keys, prompt: "Seleccione un horario" %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id, "id usuario" %>
-    <%= form.text_field :user_id %>
-  </div>
-
   <div class="actions">
     <%= form.submit "Solicitar" %>
   </div>

@@ -1,5 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  devise_for :users
   root 'home#index'
 
   # Define your application routes here
@@ -9,7 +10,11 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Rutas para la creación de turnos utilizando AppointmentController
-  resources :appointments
+  resources :appointments do
+    member do
+      patch 'update_state'
+    end
+  end
   get 'appointments/confirmation/:id', to: 'appointments#confirmation', as: 'confirmation_appointment'
   #get 'appointments/show:user_id', to: 'appointments#show', as: 'show_appointment'
   #get 'appointments/list/:user_id', to: 'appointments#list', as: 'list_appointments'

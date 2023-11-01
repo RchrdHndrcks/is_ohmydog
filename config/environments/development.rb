@@ -74,6 +74,6 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.hosts << "3000-rchrdhndrcks-isohmydog-yqquf7t4scc.ws-us105.gitpod.io"
-  config.hosts << "3000-rchrdhndrcks-isohmydog-yqquf7t4scc.ws-us105.gitpod.io"
+  config.hosts << "localhost:3000"
+  config.hosts << "localhost:3000"
 end
