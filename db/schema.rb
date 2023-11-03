@@ -10,18 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_30_212950) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_25_024340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", id: :serial, force: :cascade do |t|
     t.integer "user_id"
+    t.integer "dog_id"
     t.integer "state", default: 0
     t.integer "timeSlot", default: 0
     t.datetime "appointment_date", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["dog_id"], name: "index_appointments_on_dog_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "dogs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_dogs_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -38,5 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_30_212950) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appointments", "dogs"
   add_foreign_key "appointments", "users"
+  add_foreign_key "dogs", "users"
 end

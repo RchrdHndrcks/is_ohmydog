@@ -1,25 +1,27 @@
 <!-- app/views/appointment/new.html.erb -->
 
-
 <h1>Nuevo Turno</h1>
 
 <% if flash[:alert] %>
-  <div id="alert-message">
-    <%= flash[:alert] %>
-    <button id="close-alert">OK</button>
-  </div>
+<div id="alert-message">
+<%= flash[:alert] %>
+<button id="close-alert">OK</button>
+</div>
 <% end %>
 
 <%= form_with(model: @appointment, url: appointments_path, local: true) do |form| %>
   <div class="field">
     <%= form.label :timeSlot, "Seleccione un horario" %>
     <%= form.select :timeSlot, Appointment.timeSlots.keys, prompt: "Seleccione un horario" %>
+    <% @dogs = Dog.where(user_id: current_user.id) %>
+    <%= form.label :name, "Seleccione perro" %>
+    <%= form.select :dog_id, @dogs.map { |dog| [dog.name, dog.id] }, prompt: "Seleccione un perro" %>
   </div>
-
-  <div class="actions">
+    <div class="actions">
     <%= form.submit "Solicitar" %>
   </div>
 <% end %>
+
 
 
 <script>

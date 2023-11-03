@@ -5,19 +5,28 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user! 
 
   def new
-    @appointment = Appointment.new
+
+      @appointment = Appointment.new
+
   end
 
   def create
+    @user_id = current_user.id 
+    @dog_id = params[:appointment][:dog_id]
     @appointment = current_user.appointments.build(appointment_params)
-
-    if @appointment.save
-      Rails.logger.debug("Turno creado exitosamente") # Agregar registro de depuración
-      redirect_to confirmation_appointment_path(@appointment)
+    if Appointment.where(user_id: @user_id, state: "en_espera", dog_id: @dog_id).exists?
+      flash[:alert] = "Ya tienes un turno pendiente"
+      redirect_to new_appointment_path
     else
-      Rails.logger.debug("Error en la creación del turno") # Agregar registro de depuración
+      if @appointment.save
+        Rails.logger.debug("Turno creado exitosamente") # Agregar registro de depuración
+        redirect_to confirmation_appointment_path(@appointment)
+      else
+        Rails.logger.debug("Error en la creación del turno") # Agregar registro de depuración
       render :new
+      end
     end
+
   end
 
   def edit
@@ -26,9 +35,7 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
-    respond_to do |format|
-      format.html # Esta línea indica que se utilizará la vista show.html.erb
-    end
+
   end
 
   def update
@@ -64,10 +71,11 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:timeSlot, :user_id, :appointment_date)
+    params.require(:appointment).permit(:timeSlot, :user_id, :appointment_date, :dog_id)
   end
 
   def confirmation
-    @appointment = Appointment.find(params[:id])
+
+    #@appointment = Appointment.find(params[:id])
   end
 end

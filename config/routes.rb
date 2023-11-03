@@ -1,8 +1,7 @@
 # config/routes.rb
 Rails.application.routes.draw do
-  devise_for :users
   root 'home#index'
-
+  devise_for :users#, controllers: { sessions: 'sessions' }
   # Define your application routes here
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

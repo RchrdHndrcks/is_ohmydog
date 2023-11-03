@@ -1,7 +1,14 @@
 <h1>Detalles de la Cita</h1>
 
+
+<% if flash[:alert] %>
+<div id="alert-message">
+<%= flash[:alert] %>
+<button id="close-alert">OK</button>
+</div>
+<% else %>
 <p><strong>ID del Turno:</strong> <%= @appointment.id %></p>
 <p><strong>ID del Usuario:</strong> <%= @appointment.user_id %></p>
 <p><strong>Fecha de la Cita:</strong> <%= @appointment.appointment_date %></p>
-
+<% end %>
 <%= link_to 'Volver', appointments_path, class: 'button' %>
