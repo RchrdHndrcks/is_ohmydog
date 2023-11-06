@@ -36,6 +36,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024340) do
 
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
+    t.integer "identifier_number"
+    t.string "last_name"
+    t.string "address"
+    t.string "phone_number"
     t.boolean "es_admin", default: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
