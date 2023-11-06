@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :appointments do
     member do
       patch 'update_state'
+      patch 'update_date'
     end
   end
   get 'appointments/confirmation/:id', to: 'appointments#confirmation', as: 'confirmation_appointment'

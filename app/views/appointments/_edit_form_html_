@@ -1,0 +1,12 @@
+# app/views/appointments/_edit_form.html.erb
+
+<h1>Editar Cita</h1>
+<%= form_for appointment, remote: true do |f| %>
+  <!-- Contenido del formulario de edición -->
+  <div class="field">
+    <%= f.label :appointment_date %>
+    <%= f.datetime_field :appointment_date, id: "datetimepicker" %>
+  </div>
+  <%= f.hidden_field :state, value: 'aceptado' %>
+  <%= f.submit "Guardar" %>  
+<% end %>

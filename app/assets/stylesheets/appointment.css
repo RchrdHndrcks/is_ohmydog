@@ -1,0 +1,39 @@
+    body {
+      display: center;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    table {
+      border: 5px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      border-radius: 100px; /* Agrega bordes redondeados */
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #FFA500;
+    }
+    .first-row {
+      background-color: #00BFFF; /* Color celeste para la primera fila */
+    }
+    table th, table td {
+      border: 5px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      border-radius: 100px; /* Agrega bordes redondeados */
+      background-color: #FFA500;
+    }
+
+    .odd-row {
+      background-color: #FFA500; /* Color naranja para filas impares */
+    }
+
+    .even-row {
+      background-color: #00BFFF; /* Color celeste para filas pares */
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }

@@ -2,47 +2,7 @@
 <html>
 <head>
   <%= csrf_meta_tags %>
-  <style>
-    body {
-      display: center;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    table {
-      border: 5px solid #ccc;
-      padding: 8px;
-      text-align: center;
-      border-radius: 100px; /* Agrega bordes redondeados */
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #FFA500;
-    }
-    .first-row {
-      background-color: #00BFFF; /* Color celeste para la primera fila */
-    }
-    table th, table td {
-      border: 5px solid #ccc;
-      padding: 8px;
-      text-align: center;
-      border-radius: 100px; /* Agrega bordes redondeados */
-      background-color: #FFA500;
-    }
-
-    .odd-row {
-      background-color: #FFA500; /* Color naranja para filas impares */
-    }
-
-    .even-row {
-      background-color: #00BFFF; /* Color celeste para filas pares */
-    }
-
-    tr:hover {
-      background-color: #ddd;
-    }
-  </style>
+  
 </head>
 <body>
    <div class="containerd">
@@ -51,34 +11,35 @@
 
     <% if current_user.es_admin? %>
       <% @appointments = Appointment.all %>
+      <!-- TABLA DE TURNOS EN ESPERA -->
       <h2 style="text-align: center;">Turnos en Espera</h2>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th style="border: 1px solid #ccc; padding: 8px; text-align: left; border-radius: 10px;">Email</th>
-            <th style="border: 1px solid #ccc; padding: 8px; text-align: left; border-radius: 10px;">Nombre</th>
-            <th style="border: 1px solid #ccc; padding: 8px; text-align: left; border-radius: 10px;">Franja</th>
             <th style="border: 1px solid #ccc; padding: 8px; text-align: left; border-radius: 10px;">Perro</th>
+            <th style="border: 1px solid #ccc; padding: 8px; text-align: left; border-radius: 10px;">Franja</th>
           </tr>
         </thead>
         <tbody>
           <% @appointments.where(state: 'en_espera').each do |appointment| %>
                       <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.user.email %></td>
-                        <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.user.name %></td>
-                                  <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.timeSlot %></td>
-                                  <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;">
-                                    <% if appointment.appointment_date.present? %>
-                                      <%= appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') %>
-                                    <% else %>
-                                      <%= link_to "Elegir Fecha", edit_appointment_path(appointment), class: "button"  %>
-                                    <% end %>
-                                  </td>
-                                </tr>
-                              <% end %>
-                            </tbody>
-                          </table>
-
+                        <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= Dog.find(appointment.dog_id).name %></td>
+                        <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.timeSlot %></td>
+                        <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;">
+                          <%= form_with(model: appointment, url: update_date_appointment_path(appointment), method: :patch, remote: true) do |f| %>
+                            <%= f.label :appointment_date %>
+                            <%= f.datetime_field :appointment_date, id: "datetimepicker" %>
+                            <%= f.submit "Confirmar", class: "button" %>
+                          <% end %>           
+                        </td>
+                        </tr>
+            <% end %>
+        </tbody>
+      </table>
+      <!-- TABLA DE TURNOS RECHAZADOS -->
+                        <!--
                           <h2 style="text-align: center;">Turnos Rechazados</h2>
                           <table style="border-radius: 10px;">
                             <thead>
@@ -98,13 +59,13 @@
                               <% end %>
                             </tbody>
                           </table>
-
-                          <h2 style="text-align: center;">Próximos Turnos</h2>
+                        -->
+                          <h2 class="table";">Próximos Turnos</h2>
                           <table style="border-radius: 10px;">
                             <thead>
                               <tr>
                                 <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Email</th>
-                                <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Usuario</th>
+                                <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Perro</th>
                                 <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Fecha</th>
                               </tr>
                             </thead>
@@ -112,7 +73,7 @@
                               <% @appointments.where(state: 'aceptado').each do |appointment| %>
                                 <tr>
                                   <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.user.email %></td>
-                                  <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.user.name %></td>
+                                  <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= Dog.find(appointment.dog_id).name %></td>
                                   <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.appointment_date.present? ? appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') : "No asignada" %></td>
                                 </tr>
                               <% end %>
@@ -126,68 +87,64 @@
                           <table style="border-radius: 10px;">
                             <thead>
                               <tr>
-                                <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Email</th>
                                 <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Perro</th>
                                 <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Franja</th>
-                                <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Confirmacion</th>
+                                
                               </tr>
                             </thead>
                             <tbody>
                               <% @appointments.where(state: 'en_espera').each do |appointment| %>
                                 <tr>
-                                  <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.user.email %></td>
                                   <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= Dog.find(appointment.dog_id).name %></td>
                                   <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.timeSlot %></td>
                                   <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;">
+                                       <!-- 
                                     <% if appointment.appointment_date.present? %>
                                       <%= appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') %>
                                       <%= form_with(model: appointment, url: update_state_appointment_path(appointment), method: :patch, remote: true) do |f| %>
                                         <%= f.hidden_field :state, value: 'aceptado' %>
-                                        <%= f.submit "Confirmar", class: "button" %>
-                                      <% end %>
-                                    <% else %>
-                            <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"> En espera </td>
-                          <% end %>
-                        </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-
+                                        <%= f.submit "Confirmar", class: "button" %> descomentar para que el usuario confirme horario 
+                                     <% end %>
+                                    <% else %> 
+                                    <% end %>
+                                  </td>
+                                        -->
+                                </tr>
+                              <% end %>
+                           </tbody>
+                        </table>
+              <!--
                 <h2 style="text-align: center;">Turnos Rechazados</h2>
                 <table>
                   <thead>
                     <tr>
-                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Email</th>
-                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Usuario</th>
-                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Horario</th>
+                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center; border-radius: 10px;">Perro</th>
+                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Franja</th>
                     </tr>
                   </thead>
                   <tbody>
                     <% @appointments.where(state: 'rechazado').each do |appointment| %>
                       <tr>
-                        <td><%= appointment.user.email %></td>
-                        <td><%= appointment.user.name %></td>
+                        <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= Dog.find(appointment.dog_id).name %></td>
+                        <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= appointment.timeSlot %></td>
                         <td><%= appointment.timeSlot %></td>
                       </tr>
                     <% end %>
                   </tbody>
                 </table>
-
+              -->
                 <h2 style="text-align: center;">Próximos Turnos</h2>
                 <table>
                   <thead>
                     <tr>
-                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Email</th>
-                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Usuario</th>
+                      <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Perro</th>
                       <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Fecha</th>
                     </tr>
                   </thead>
                   <tbody>
                     <% @appointments.where(state: 'aceptado').each do |appointment| %>
                       <tr>
-                        <td><%= appointment.user.email %></td>
-                        <td><%= appointment.user.name %></td>
+                      <td style="border: 1px solid #ccc; padding: 8px; border-radius: 10px;"><%= Dog.find(appointment.dog_id).name %></td>
                         <td><%= appointment.appointment_date.present? ? appointment.appointment_date.strftime('%d/%m/%Y %I:%M %p') : "No asignada" %></td>
                       </tr>
                     <% end %>

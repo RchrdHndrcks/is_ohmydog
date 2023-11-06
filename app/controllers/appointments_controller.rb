@@ -68,6 +68,16 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def update_date
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
+      flash[:notice] = "Se ha cargado la fecha"
+      render 'index'
+    else
+      # Maneja la actualización fallida
+    end
+  end
+
   private
 
   def appointment_params
