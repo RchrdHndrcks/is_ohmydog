@@ -31,12 +31,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "breed"
+    t.datetime "birthdate"
+    t.string "image"
     t.index ["user_id"], name: "index_dogs_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.integer "identifier_number"
+    t.string "identifier_number"
     t.string "last_name"
     t.string "address"
     t.string "phone_number"

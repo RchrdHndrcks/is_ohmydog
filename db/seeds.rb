@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+User.create(
+  email: "pecotcheandres@outlook.com",
+  password: "123456",
+  name: "andres",
+  last_name: "pecotche",
+  phone_number: "2262653921",
+  address: "70",
+  identifier_number: 4134374
+)
+puts "Se ha creado un usuario con los datos especificados en el archivo seeds.rb."

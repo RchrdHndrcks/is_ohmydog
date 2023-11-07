@@ -78,3 +78,5 @@ gem 'devise'
 gem 'jquery-rails'
 
 gem 'fullcalendar-rails'
+
+gem 'image_processing'

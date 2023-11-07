@@ -4,6 +4,9 @@ class CreateDog < ActiveRecord::Migration[7.1]
       t.string :name
       t.timestamps
       t.belongs_to :user, foreign_key: true
+      t.string :breed
+      t.datetime :birthdate
+      t.string :image
     end
   end
 end

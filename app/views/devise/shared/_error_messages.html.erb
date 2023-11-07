@@ -8,9 +8,9 @@
     </h2>
     <ul>
       <% resource.errors.full_messages.each do |message| %>
-        <div id="alert-message">
-        <%= flash[:message] %>
-        <!-- <li><%= message %></li> -->
+        <!-- <div id="alert-message"> -->
+        <!-- <%= flash[:message] %> -->
+       <li><%= message %></li> 
       <% end %>
     </ul>
   </div>
