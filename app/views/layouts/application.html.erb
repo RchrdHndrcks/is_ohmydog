@@ -22,6 +22,7 @@
     <% if user_signed_in? %>
       <% if current_user.es_admin? %>
         <%= link_to "Registrar Usuarios", new_user_registration_path, class: "button" %>
+        <%= link_to "Buscar Usuarios", users_search_path, class: "button" %>
       <% end %>
       <%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button" %>
     <% else %>

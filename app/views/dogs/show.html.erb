@@ -1,0 +1,9 @@
+<!-- app/views/dogs/show.html.erb -->
+<h1>Detalles del Perro</h1>
+<p><strong>Nombre:</strong> <%= @dog.name %></p>
+<p><strong>Raza:</strong> <%= @dog.breed %></p>
+<p><strong>Fecha de Nacimiento:</strong> <%= @dog.birthdate %></p>
+<% if @dog.image.attached? %>
+  <%= image_tag @dog.image %>
+<% end %>
+<%= link_to "Volver a la lista de perros", dogs_path %>
