@@ -12,5 +12,7 @@
   <%= f.label :image %>
   <%= f.file_field :image %>
 
+  <%= f.hidden_field :user_id, value: params[:user_id] %>
+
   <%= f.submit 'Registrar Perro' %>
 <% end %>
