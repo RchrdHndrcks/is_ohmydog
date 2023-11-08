@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'adoption_posts' %>
+
+<script>
+  const postIds = <%= raw @adoption_posts_ids.to_json %>;
+</script>
+
+<% @adoption_posts.each do |post| %>
+    <div class="adoption-posts-container">
+        <div class="adoption-posts-title">
+            <h2 class="adoption-posts-font"> <%= post.dog_name %> </h2>
+            <button id="option-btn-<%= post.id %>" class="post-option-btn"><i class='fas fa-paw'></i></button>
+            <ul id="option-list-<%= post.id %>" class="option-list" style="display:none;">
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </div>
+        <div>
+            <p class="adoption-posts-font"> 
+                <b>Edad:</b> <%= post.dog_age %> años | 
+                <b>Sexo:</b> <%= post.dog_sex %> | 
+                <b>Raza:</b> <%= post.dog_breed %>
+            </p>
+        </div>
+        <p class="adoption-posts-font"> <b>Caracteristicas:</b> <%= post.dog_charac %> </p>
+        <p class="adoption-posts-font"> <b>Historia:</b> <%= post.dog_history %> </p>
+        <div class="adoption-posts-corner-icons">
+            <i class='fas fa-bone top-left-icon'></i>
+            <i class='fas fa-bone top-right-icon'></i>
+            <i class='fas fa-bone bottom-left-icon'></i>
+            <i class='fas fa-bone bottom-right-icon'></i>
+        </div>
+    </div>
+<% end %>

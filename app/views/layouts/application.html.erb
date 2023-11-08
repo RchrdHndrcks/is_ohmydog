@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Oh My Dog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_importmap_tags %>
+  <head>
+  <title><%=@page_title%></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <p class="home_bar">
-    Novedades&emsp; Adopciones&emsp; Paseadores/Cuidadores&emsp;
+    <%= stylesheet_link_tag "application", "posts", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <%= javascript_importmap_tags %>
+
+    <p class="home_bar">
+    Novedades&emsp; Adopciones&emsp; <a href="<%= adoption_posts_path %>">Adopciones</a> Paseadores/Cuidadores&emsp;
 
     <% if current_user && !current_user.es_admin %>
       <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
@@ -31,10 +33,11 @@
   </p>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-</head>
-<body>
-  <div class="container">
+
+  </head>
+
+
+  <body>
     <%= yield %>
-  </div>
 </body>
 </html>

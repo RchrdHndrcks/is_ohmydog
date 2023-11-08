@@ -1,5 +1,7 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  #get 'adoption_posts/index', to: 'adoption_posts#index'
+  resources :adoption_posts
   root 'home#index'
 
   #------------------Rutas para la creación de usuarios utilizando RegistrationsController ----------------------#
