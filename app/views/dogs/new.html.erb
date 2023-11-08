@@ -1,15 +1,15 @@
 <!-- app/views/dogs/new.html.erb -->
 <%= form_for @dog, html: { multipart: true } do |f| %>
-  <%= f.label :name %>
+  <label> Nombre </label>
   <%= f.text_field :name %>
 
-  <%= f.label :breed %>
+  <label> Raza </label>
   <%= f.text_field :breed %>
 
-  <%= f.label :birthdate %>
+  <label> Fecha de Nacimiento </label>
   <%= f.date_field :birthdate %>
-
-  <%= f.label :image %>
+  
+  <label> Foto </label>
   <%= f.file_field :image %>
 
   <%= f.hidden_field :user_id, value: params[:user_id] %>
