@@ -71,3 +71,13 @@ end
 gem "cssbundling-rails", "~> 1.3"
 
 gem 'pg'
+
+gem 'bcrypt'
+
+gem 'devise'
+
+gem 'jquery-rails'
+
+gem 'fullcalendar-rails'
+
+gem 'image_processing'

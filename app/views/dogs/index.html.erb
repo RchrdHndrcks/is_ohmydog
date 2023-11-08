@@ -1,0 +1,29 @@
+<!-- app/views/dogs/index.html.erb -->
+<h1>Perros de <%= @user.name %></h1>
+
+<% if @dogs.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Raza</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Foto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @dogs.each do |dog| %>
+        <tr>
+          <td><%= dog.name %></td>
+          <td><%= dog.breed %></td>
+          <td><%= dog.birthdate %></td>
+          <td><%= image_tag dog.image, size: "100x100" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No se encontraron perros para <%= @user.name %>.</p>
+<% end %>
+
+<%= link_to "Volver a la lista de usuarios", users_search_path %>

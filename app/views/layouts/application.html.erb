@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%=@page_title%></title>
+  <title><%=@page_title%></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,11 +9,35 @@
     <%= stylesheet_link_tag "application", "posts", "data-turbo-track": "reload" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <%= javascript_importmap_tags %>
+
+    <p class="home_bar">
+    Novedades&emsp; Adopciones&emsp; <a href="<%= adoption_posts_path %>">Adopciones</a> Paseadores/Cuidadores&emsp;
+
+    <% if current_user && !current_user.es_admin %>
+      <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
+      <%= link_to "Mis turnos", appointments_path(@user_id), class: "button" %>
+    <% end %>
+    <% if current_user && current_user.es_admin %>
+      <%= link_to "Turnos", appointments_path(@user_id), class: "button" %>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <% if current_user.es_admin? %>
+        <%= link_to "Registrar Usuarios", new_user_registration_path, class: "button" %>
+        <%= link_to "Buscar Usuarios", users_search_path, class: "button" %>
+      <% end %>
+      <%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button" %>
+    <% else %>
+      <%= link_to "Iniciar Sesión", new_user_session_path, class: "button" %>
+    <% end %>
+  </p>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
   </head>
 
-  <p class="home_bar">Novedades&emsp; <a href="<%= adoption_posts_path %>">Adopciones</a>&emsp; Paseadores/Cuidadores&emsp; Turnos</p>
 
   <body>
     <%= yield %>
-  </body>
+</body>
 </html>
