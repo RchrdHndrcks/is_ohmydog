@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
     validates :name, presence: false
     validates :email, presence: true, uniqueness: true
-    validates :password, presence: true
+    validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
     validates :identifier_number, presence: true, uniqueness: true
     validates :last_name, presence: true
     validates :address, presence: true
@@ -15,6 +15,12 @@ class User < ApplicationRecord
     has_many :appointments
     has_many :dogs
     has_many :adoption_posts
-    # Otros métodos y relaciones de modelo si los tienes
+    
+    private 
+
+
+    def password_required?
+      new_record? || !password.nil?
+    end
   end
   
