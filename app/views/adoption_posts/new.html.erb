@@ -1,0 +1,51 @@
+<h1>New Adoption Post</h1>
+
+<%= form_with(model: @adoption_post, url: adoption_posts_path, local: true) do |form| %>
+  <% if @adoption_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@adoption_post.errors.count, "error") %> prohibited this adoption post from being saved:</h2>
+
+      <ul>
+        <% @adoption_post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label>Nombre del perro</label>
+    <%= form.text_field :dog_name %>
+  </div>
+
+  <div class="field">
+    <label>Edad del perro</label>
+    <%= form.text_field :dog_age %>
+  </div>
+
+  <div class="field">
+    <label>Sexo del perro</label>
+    <%= form.text_field :dog_sex %>
+  </div>
+
+  <div class="field">
+    <label>Raza del perro</label>
+    <%= form.text_field :dog_breed %>
+  </div>
+
+  <div class="field">
+    <label>Caracteristicas del perro</label>
+    <%= form.text_area :dog_charac %>
+  </div>
+
+  <div class="field">
+    <label>Historia del perro</label>
+    <%= form.text_area :dog_history %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Cancelar', adoption_posts_path %>
