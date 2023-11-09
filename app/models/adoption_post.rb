@@ -1,4 +1,6 @@
 class AdoptionPost < ApplicationRecord
+    belongs_to :user
+    
     validates :dog_name, presence: true
     validates :dog_age, presence: true
     validates :dog_sex, presence: true

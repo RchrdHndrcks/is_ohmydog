@@ -14,6 +14,7 @@ class User < ApplicationRecord
     validates :es_admin, presence: false
     has_many :appointments
     has_many :dogs
+    has_many :adoption_posts
     # Otros métodos y relaciones de modelo si los tienes
   end
   

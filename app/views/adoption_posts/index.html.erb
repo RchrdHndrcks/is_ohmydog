@@ -4,6 +4,8 @@
   const postIds = <%= raw @adoption_posts_ids.to_json %>;
 </script>
 
+<%= link_to "Añadir publicación", new_adoption_post_path, class: "btn btn-primary btn-floating position-fixed bottom-0 end-0 m-3" %>
+
 <% @adoption_posts.each do |post| %>
     <div class="adoption-posts-container">
         <div class="adoption-posts-title">
