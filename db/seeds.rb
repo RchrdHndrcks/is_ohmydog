@@ -15,6 +15,34 @@ User.create(
   last_name: "pecotche",
   phone_number: "2262653921",
   address: "70",
+  identifier_number: 4134374,
+  es_admin: true
+)
+puts "Se ha creado un usuario con los datos especificados en el archivo seeds.rb."
+User.create(
+  email: "pecotcheandres@gmail.com",
+  password: "123456",
+  name: "andres2",
+  last_name: "pecotche2",
+  phone_number: "2262653921",
+  address: "70",
   identifier_number: 4134374
 )
 puts "Se ha creado un usuario con los datos especificados en el archivo seeds.rb."
+
+Dog.create(
+  name: "Firulais",
+  breed: "Pitbull",
+  birthdate: "2019-01-01",
+  image: "",
+  user_id: 1
+)
+puts "Se ha creado un perro con los datos especificados en el archivo seeds.rb."
+Dog.create(
+  name: "Ringo",
+  breed: "caniche",
+  birthdate: "2018-01-01",
+  image: "/home/andres/Downloads/perrito.jpg",
+  user_id: 1
+)
+puts "Se ha creado un perro con los datos especificados en el archivo seeds.rb."

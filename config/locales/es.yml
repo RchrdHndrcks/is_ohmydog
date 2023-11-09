@@ -1,0 +1,52 @@
+# config/locales/es.yml
+es:
+  activerecord:
+    attributes:
+      dog:
+        name: "Nombre"
+        breed: "Raza"
+        birthdate: "Fecha de Nacimiento"
+        image: "Foto"
+      user:
+          name: "Nombre"
+          last_name: "Apellido"
+          address: "Dirección"
+          phone_number: "Teléfono"
+          identifier_number: "Número de Identificación"
+          email: "Correo Electrónico"
+          password: "Contraseña"
+          password_confirmation: "Confirmación de Contraseña"
+    errors:
+      models:
+        dog:
+          attributes:
+            name:
+              blank: "El nombre del perro no puede estar en blanco"
+              taken: "El nombre del perro ya existe"
+            breed:
+              blank: "La raza del perro no puede estar en blanco"
+            birthdate:
+              blank: "La fecha de nacimiento del perro no puede estar en blanco"
+            image:
+              blank: "La foto del perro no puede estar en blanco"
+        user:   
+          attributes: 
+            name:
+              blank: "El nombre del usuario no puede estar en blanco"
+            last_name:
+              blank: "El apellido del usuario no puede estar en blanco"
+            address:
+              blank: "La dirección del usuario no puede estar en blanco"
+            phone_number:
+              blank: "El teléfono del usuario no puede estar en blanco"
+            identifier_number:
+              blank: "El número de identificación del usuario no puede estar en blanco"
+              taken:  "El número de identificación del usuario ya existe"
+              
+            email:
+              blank: "El correo electrónico del usuario no puede estar en blanco"
+              taken: "El correo electrónico del usuario ya existe"
+            password:
+              blank: "La contraseña del usuario no puede estar en blanco"
+            password_confirmation:
+              blank: "La confirmación de contraseña del usuario no puede estar en blanco"

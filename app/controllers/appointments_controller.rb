@@ -5,87 +5,104 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user! 
 
   def new
-
-      @appointment = Appointment.new
-
+    Rails.logger.debug("entro------a new-------------------------------------------------------------------------------")
+    @appointment = Appointment.new
+    @user_dogs = current_user.dogs
+    if Appointment.where(user_id: current_user.id, state: 'en_espera')
+      Rails.logger.debug("entro------a if--ya tineeeeee-----------------------------------------------------------------------------")
+      @ya_tiene_turno = true
+    end
   end
 
   def create
-    @user_id = current_user.id 
-    @dog_id = params[:appointment][:dog_id]
-    @appointment = current_user.appointments.build(appointment_params)
-    if Appointment.where(user_id: @user_id, state: "en_espera", dog_id: @dog_id).exists?
-      flash[:alert] = "Ya tienes un turno pendiente"
-      redirect_to new_appointment_path
-    else
-      if @appointment.save
-        Rails.logger.debug("Turno creado exitosamente") # Agregar registro de depuración
-        redirect_to confirmation_appointment_path(@appointment)
-      else
-        Rails.logger.debug("Error en la creación del turno") # Agregar registro de depuración
-      render :new
-      end
+    Rails.logger.debug("entro------a create-------------------------------------------------------------------------------")
+    @appointment = Appointment.new(appointment_params)
+    @appointment.user_id = current_user.id
+    if Appointment.where(user_id: current_user.id, state: 'en_espera')
+      Rails.logger.debug("entro------a if--ya tineeeeee-----------------------------------------------------------------------------")
+      @ya_tiene_turno = true
     end
-
+    if @appointment.save
+      Rails.logger.debug("entro------a save--create-----------------------------------------------------------------------------")
+      redirect_to root_path
+      flash[:notice] = "Se ha creado el turno"
+    else
+      #render 'new'
+      redirect_to root_path
+      error = @appointment.errors.full_messages
+      flash[:notice] = error
+      Rails.logger.debug("entro------a error--create-----------------------------------------------------------------------------")
+    end
   end
 
   def edit
+    Rails.logger.debug("entro------a edit-------------------------------------------------------------------------------")
     @appointment = Appointment.find(params[:id])
   end
 
   def show
+    Rails.logger.debug("entro------a show-------------------------------------------------------------------------------")
     @appointment = Appointment.find(params[:id])
-
+    
   end
 
   def update
     @appointment = Appointment.find(params[:id])
     if @appointment.update(appointment_params)
-      redirect_to @appointment, notice: 'Cita actualizada exitosamente.'
+      Rails.logger.debug("entro------a update-------------------------------------------------------------------------------")
+      flash[:notice] = "Se ha cargado la fecha"
+      render 'index'
     else
+      Rails.logger.debug("entro------a update error-------------------------------------------------------------------------------")
       render 'edit'
     end
   end
 
 
   def index
-    @user_id = current_user.id # cuando tengamos usuario logeado poner current_user.id
-    @appointments = Appointment.where(user_id: @user_id)
-    if @appointments
-    # Si se encuentra el turno, mostrar los detalles
+    if current_user.es_admin?
+      @appointments_en_espera = Appointment.where(state: 'en_espera')
+      @appointments_aceptados = Appointment.where(state: 'aceptado')
+      @appointments_rechazados = Appointment.where(state: 'rechazado')
     else
-    # Si no se encuentra el turno, establecer un mensaje
-    @no_appointments_message = "No tienes turnos en este momento."
+      @appointments_en_espera = Appointment.where(user_id: current_user.id, state: 'en_espera')
+      @appointments_aceptados = Appointment.where(user_id: current_user.id, state: 'aceptado')
+      @appointments_rechazados = Appointment.where(user_id: current_user.id, state: 'rechazado')
+
     end
   end
 
-  def update_state
-    @appointment = Appointment.find(params[:id])
-    if @appointment.update(state: params[:appointment][:state])
-      # Maneja la actualización exitosa
-    else
-      # Maneja la actualización fallida
-    end
-  end
+ # def update_state
+ #   @appointment = Appointment.find(params[:id])
+ #   if @appointment.update(state: params[:appointment][:state])
+ #     flash[:notice] = "Se ha cargado la fecha"
+ #     render 'index'
+ #   else
+ #     flash[:notice] = "error al cargar la fecha"
+ #     render 'index'
+ #   end
+ # end
 
-  def update_date
-    @appointment = Appointment.find(params[:id])
-    if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
-      flash[:notice] = "Se ha cargado la fecha"
-      render 'index'
-    else
-      # Maneja la actualización fallida
-    end
-  end
+ # def update_date
+ #   @appointment = Appointment.find(params[:id])
+ #   if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
+ #     flash[:notice] = "Se ha cargado la fecha"
+ #     render 'index'
+ #   else
+ #     flash[:notice] = "error al cargar la fecha"
+ #     render 'index'
+ #   end
+ # end
 
   private
 
   def appointment_params
-    params.require(:appointment).permit(:timeSlot, :user_id, :appointment_date, :dog_id)
+    params.require(:appointment).permit(:timeSlot, dog_ids: [])
   end
 
   def confirmation
-
-    #@appointment = Appointment.find(params[:id])
+    Rails.logger.debug("entro------a confirmation------------------------------------------------------------------------------")
   end
+
+
 end

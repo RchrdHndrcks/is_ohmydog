@@ -12,6 +12,7 @@
         <li><%= user.name %> - <%= user.email %></li> 
         <%= link_to "Registrar perro", new_dog_path(user_id: user.id) %>
         <%= link_to "Ver Perros", dogs_path(user_id: user.id) %>
+        <%= link_to "Editar perfil", edit_user_registration_path(user_id: user.id), class: "button" %>
       <% end %> 
     </ul>
   <% else %>

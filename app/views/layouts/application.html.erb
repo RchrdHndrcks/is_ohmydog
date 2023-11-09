@@ -14,19 +14,20 @@
     Novedades&emsp; Adopciones&emsp; <a href="<%= adoption_posts_path %>">Adopciones</a> Paseadores/Cuidadores&emsp;
 
     <% if current_user && !current_user.es_admin %>
+ 
       <%= link_to "Pedir turno", new_appointment_path, class: "button" %>
-      <%= link_to "Mis turnos", appointments_path(@user_id), class: "button" %>
+      <%= link_to "Mis turnos", appointments_path, class: "button" %> 
+      <%= link_to "Mis perros", dogs_path(user_id: current_user.id), class: "button" %>
+      <%= link_to "Editar perfil", edit_user_registration_path(user_id: current_user.id), class: "button" %>
     <% end %>
     <% if current_user && current_user.es_admin %>
-      <%= link_to "Turnos", appointments_path(@user_id), class: "button" %>
+      <%= link_to "Turnos", appointments_path, class: "button" %>
+      <%= link_to "Registrar Usuarios", new_user_registration_path, class: "button" %>
+      <%= link_to "Buscar Usuarios", users_search_path, class: "button" %>
     <% end %>
 
     <% if user_signed_in? %>
-      <% if current_user.es_admin? %>
-        <%= link_to "Registrar Usuarios", new_user_registration_path, class: "button" %>
-        <%= link_to "Buscar Usuarios", users_search_path, class: "button" %>
-      <% end %>
-      <%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button" %>
+    <%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button" %>
     <% else %>
       <%= link_to "Iniciar Sesión", new_user_session_path, class: "button" %>
     <% end %>

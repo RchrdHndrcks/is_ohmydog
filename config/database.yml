@@ -9,4 +9,4 @@ default: &default
 
 development:
   <<: *default
-  database: omd_dev
+  database: omd_dev2

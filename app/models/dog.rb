@@ -5,4 +5,5 @@ class Dog < ApplicationRecord
     validates :birthdate, presence: true
     has_one_attached :image
     #validates :weight, presence: true
+    has_and_belongs_to_many :appointments
 end

@@ -1,0 +1,8 @@
+/* app/assets/stylesheets/application.css (o application.scss) */
+.error-message {
+    color: red;
+  }
+  
+  .field-with-errors {
+    border: 1px solid red;
+  }

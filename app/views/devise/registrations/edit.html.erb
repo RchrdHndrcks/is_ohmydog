@@ -1,7 +1,36 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+    <%= render_error_messages_for(resource, :name) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+    <%= render_error_messages_for(resource, :last_name) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+    <%= render_error_messages_for(resource, :address) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number %><br>
+    <%= f.text_field :phone_number %>
+    <%= render_error_messages_for(resource, :phone_number) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :identifier_number %><br>
+    <%= f.number_field :identifier_number, autofocus: true, autocomplete: "DNI" %>
+    <%= render_error_messages_for(resource, :identifier_number) %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -26,14 +55,10 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
 
 <%= link_to "Back", :back %>
