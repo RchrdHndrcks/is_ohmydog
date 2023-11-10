@@ -5,32 +5,35 @@
 </script>
 
 <%= link_to "Añadir publicación", new_adoption_post_path, class: "btn btn-primary btn-floating position-fixed bottom-0 end-0 m-3" %>
-
-<% @adoption_posts.each do |post| %>
-    <div class="adoption-posts-container">
-        <div class="adoption-posts-title">
-            <h2 class="adoption-posts-font"> <%= post.dog_name %> </h2>
-            <% if user_signed_in? && current_user == post.user %>
-                <button id="edit-btn-<%= post.id %>" class="post-edit-btn">Editar</button>
-            <% end %>
-            <% if user_signed_in? && (current_user == post.user || current_user.es_admin) %>
-                <button id="delete-btn-<%= post.id %>" class="post-delete-btn">Eliminar</button>
-            <% end %>
+<% if @adoption_posts.size > 0 %>
+    <% @adoption_posts.each do |post| %>
+        <div class="adoption-posts-container">
+            <div class="adoption-posts-title">
+                <h2 class="adoption-posts-font"> <%= post.dog_name %> </h2>
+                <% if user_signed_in? && current_user == post.user %>
+                    <button id="edit-btn-<%= post.id %>" class="post-edit-btn">Editar</button>
+                <% end %>
+                <% if user_signed_in? && (current_user == post.user || current_user.es_admin) %>
+                    <button id="delete-btn-<%= post.id %>" class="post-delete-btn">Eliminar</button>
+                <% end %>
+            </div>
+            <div>
+                <p class="adoption-posts-font"> 
+                    <b>Edad:</b> <%= post.dog_age %> años | 
+                    <b>Sexo:</b> <%= post.dog_sex %> | 
+                    <b>Raza:</b> <%= post.dog_breed %>
+                </p>
+            </div>
+            <p class="adoption-posts-font"> <b>Caracteristicas:</b> <%= post.dog_charac %> </p>
+            <p class="adoption-posts-font"> <b>Historia:</b> <%= post.dog_history %> </p>
+            <div class="adoption-posts-corner-icons">
+                <i class='fas fa-bone top-left-icon'></i>
+                <i class='fas fa-bone top-right-icon'></i>
+                <i class='fas fa-bone bottom-left-icon'></i>
+                <i class='fas fa-bone bottom-right-icon'></i>
+            </div>
         </div>
-        <div>
-            <p class="adoption-posts-font"> 
-                <b>Edad:</b> <%= post.dog_age %> años | 
-                <b>Sexo:</b> <%= post.dog_sex %> | 
-                <b>Raza:</b> <%= post.dog_breed %>
-            </p>
-        </div>
-        <p class="adoption-posts-font"> <b>Caracteristicas:</b> <%= post.dog_charac %> </p>
-        <p class="adoption-posts-font"> <b>Historia:</b> <%= post.dog_history %> </p>
-        <div class="adoption-posts-corner-icons">
-            <i class='fas fa-bone top-left-icon'></i>
-            <i class='fas fa-bone top-right-icon'></i>
-            <i class='fas fa-bone bottom-left-icon'></i>
-            <i class='fas fa-bone bottom-right-icon'></i>
-        </div>
-    </div>
+    <% end %>
+<% else %>
+        <h2> aun no hay publicaciones creadas</h2>
 <% end %>

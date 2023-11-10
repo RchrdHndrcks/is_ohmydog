@@ -17,7 +17,11 @@
           <td><%= dog.name %></td>
           <td><%= dog.breed %></td>
           <td><%= dog.birthdate %></td>
-          <td><%= image_tag dog.image, size: "100x100" %></td>
+          <% if dog.image.attached? %>
+            <td><%= image_tag dog.image, size: "100x100" %></td>
+          <% else %>
+            <td><%= image_tag "https://w7.pngwing.com/pngs/163/438/png-transparent-paw-dog-footprints-miscellaneous-animals-pet.png", size: "100x100" %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -25,5 +29,6 @@
 <% else %>
   <p>No se encontraron perros para <%= @user.name %>.</p>
 <% end %>
-
-<%= link_to "Volver a la lista de usuarios", users_search_path %>
+<% if (current_user.es_admin?) %>
+  <%= link_to "Volver a la lista de usuarios", users_search_path %>
+<% end %>

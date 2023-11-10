@@ -56,15 +56,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024342) do
   end
 
   create_table "appointments", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "dog_id"
     t.integer "state", default: 0
     t.integer "timeSlot", default: 0
     t.datetime "appointment_date", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["dog_id"], name: "index_appointments_on_dog_id"
+    t.integer "user_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "appointments_dogs", force: :cascade do |t|
+    t.bigint "dog_id", null: false
+    t.bigint "appointment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_appointments_dogs_on_appointment_id"
+    t.index ["dog_id", "appointment_id"], name: "index_appointments_dogs_on_dog_id_and_appointment_id", unique: true
+    t.index ["dog_id"], name: "index_appointments_dogs_on_dog_id"
   end
 
   create_table "dogs", force: :cascade do |t|
@@ -98,8 +106,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024342) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "adoption_posts", "users"
-  add_foreign_key "appointments", "dogs"
   add_foreign_key "appointments", "users"
+  add_foreign_key "appointments_dogs", "appointments"
+  add_foreign_key "appointments_dogs", "dogs"
   add_foreign_key "dogs", "users"
 end

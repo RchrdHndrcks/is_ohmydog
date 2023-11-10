@@ -25,10 +25,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def sign_up_params 
-    params.require(:user).permit(:name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
-  end
-
   def edit
     @user = User.find(params[:id])
   end
@@ -37,7 +33,8 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.find(params[:user][:id])
     puts "User ID being received: #{params[:id]}"
     if @user.update(user_params)
-      redirect_to root_path, notice: 'User was successfully updated.'
+      redirect_to root_path #, notice: 'User was successfully updated.'
+      set_flash_message! :notice, :updated
     else
       render :edit
     end
@@ -58,5 +55,13 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:alert] = "Acceso no autorizado."
     end
   end
+
+  def sign_up_params 
+    params.require(:user).permit(:name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+  end
+
+  #def account_update_params
+  #  params.require(:user).permit(:name, :last_name, :address, :phone_number, :identifier_number, :email, :password)
+  #end
 
 end

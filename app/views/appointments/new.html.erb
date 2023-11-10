@@ -9,33 +9,23 @@
 </div>
 <% end %>
 
-<%= form_with(model: @appointment, url: appointments_path, local: true) do |form| %>
+
+<%= form_for @appointment, html: { id: 'appointment-form', onsubmit: 'return validateForm()' } do |f| %>
   <div class="field">
-    <%= form.label :timeSlot, "Seleccione un horario" %>
-    <%= form.select :timeSlot, Appointment.timeSlots.keys, prompt: "Seleccione un horario" %>
-    <% @dogs = Dog.where(user_id: current_user.id) %>
-    <%= form.label :name, "Seleccione perro" %>
-    <%= form.select :dog_id, @dogs.map { |dog| [dog.name, dog.id] }, prompt: "Seleccione un perro" %>
+    <%= f.label :timeSlot %>
+    <%= f.select :timeSlot, Appointment.timeSlots.keys %>
   </div>
-    <div class="actions">
-    <%= form.submit "Solicitar" %>
+
+  <div class="field">
+    <%= f.label :dog_ids %>
+    <%= f.collection_check_boxes :dog_ids, @user_dogs, :id, :name %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit 'Solicitar Cita' %>
   </div>
 <% end %>
 
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var alertMessage = document.getElementById("alert-message");
-    var closeAlertButton = document.getElementById("close-alert");
-
-    if (alertMessage) {
-      alertMessage.style.display = "block";
-
-      closeAlertButton.addEventListener("click", function() {
-        alertMessage.style.display = "none";
-      });
-    }
-  });
-</script>
 
