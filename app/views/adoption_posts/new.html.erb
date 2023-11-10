@@ -1,0 +1,55 @@
+<%= form_with(model: @adoption_post, url: adoption_posts_path, local: true, class: "adoption-form") do |form| %>
+  <% if @adoption_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@adoption_post.errors.count, "error") %> prohibited this adoption post from being saved:</h2>
+
+      <ul>
+        <% @adoption_post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<script>
+  // Script para hacer scroll automático al final de la página
+  window.onload = function() {
+    window.scrollTo(0,document.body.scrollHeight);
+  };
+</script>
+
+  <div class="field">
+    <label class="adoption-posts-font">Nombre del perro</label>
+    <%= form.text_field :dog_name, class: "form-field" %>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Edad del perro</label>
+    <%= form.text_field :dog_age, class: "form-field" %>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Sexo del perro</label>
+    <%= form.text_field :dog_sex, class: "form-field" %>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Raza del perro</label>
+    <%= form.text_field :dog_breed, class: "form-field" %>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Caracteristicas del perro</label>
+    <%= form.text_area :dog_charac, class: "form-field" %>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Historia del perro</label>
+    <%= form.text_area :dog_history, class: "form-field" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Guardar", class: "btn btn-primary" %>
+    <%= link_to 'Cancelar', adoption_posts_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

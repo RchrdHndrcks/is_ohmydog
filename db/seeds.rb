@@ -17,6 +17,7 @@ User.create(
   address: "70",
   identifier_number: 4134374,
   es_admin: true
+  
 )
 puts "Se ha creado un usuario con los datos especificados en el archivo seeds.rb."
 User.create(
@@ -26,7 +27,8 @@ User.create(
   last_name: "pecotche2",
   phone_number: "2262653921",
   address: "70",
-  identifier_number: 4134374
+  identifier_number: 4134374,
+  es_admin: true
 )
 puts "Se ha creado un usuario con los datos especificados en el archivo seeds.rb."
 

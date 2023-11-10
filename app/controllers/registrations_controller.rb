@@ -1,8 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
-
-
   before_action :authenticate_user!
-  before_action :check_admin, only: [:new, :create]
+  before_action :check_admin, only: [:new, :create, :edit, :update]
   skip_before_action :require_no_authentication, only: [:new, :create]
   Rails.logger.debug("paso before:action-------------------------------------------------------------------------------")
 
@@ -26,8 +24,26 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:user][:id])
+    puts "User ID being received: #{params[:id]}"
+    if @user.update(user_params)
+      redirect_to root_path, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
+  end
   
   private
+
+  def user_params
+    params.require(:user).permit(:name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+  end
 
   def check_admin
     Rails.logger.debug("entro----check-admin--------------------------------------------------------------------------------")
@@ -43,8 +59,8 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
   end
 
-  def account_update_params
-    params.require(:user).permit(:name, :last_name, :address, :phone_number, :identifier_number, :email, :password)
-  end
+  #def account_update_params
+  #  params.require(:user).permit(:name, :last_name, :address, :phone_number, :identifier_number, :email, :password)
+  #end
 
 end

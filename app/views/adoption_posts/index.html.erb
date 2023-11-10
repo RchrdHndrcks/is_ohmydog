@@ -4,15 +4,18 @@
   const postIds = <%= raw @adoption_posts_ids.to_json %>;
 </script>
 
+<%= link_to "Añadir publicación", new_adoption_post_path, class: "btn btn-primary btn-floating position-fixed bottom-0 end-0 m-3" %>
+
 <% @adoption_posts.each do |post| %>
     <div class="adoption-posts-container">
         <div class="adoption-posts-title">
             <h2 class="adoption-posts-font"> <%= post.dog_name %> </h2>
-            <button id="option-btn-<%= post.id %>" class="post-option-btn"><i class='fas fa-paw'></i></button>
-            <ul id="option-list-<%= post.id %>" class="option-list" style="display:none;">
-                <li>Editar</li>
-                <li>Eliminar</li>
-            </ul>
+            <% if user_signed_in? && current_user == post.user %>
+                <button id="edit-btn-<%= post.id %>" class="post-edit-btn">Editar</button>
+            <% end %>
+            <% if user_signed_in? && (current_user == post.user || current_user.es_admin) %>
+                <button id="delete-btn-<%= post.id %>" class="post-delete-btn">Eliminar</button>
+            <% end %>
         </div>
         <div>
             <p class="adoption-posts-font"> 
