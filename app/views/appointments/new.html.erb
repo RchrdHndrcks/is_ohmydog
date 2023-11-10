@@ -9,12 +9,6 @@
 </div>
 <% end %>
 
-<% if @ya_tiene_un_turno %>
-  <p>Ya tiene un turno asignado</p>
-<% else %>
-  <p>no tiene</p>
-<% end %>
-
 
 <%= form_for @appointment, html: { id: 'appointment-form', onsubmit: 'return validateForm()' } do |f| %>
   <div class="field">
@@ -26,7 +20,7 @@
     <%= f.label :dog_ids %>
     <%= f.collection_check_boxes :dog_ids, @user_dogs, :id, :name %>
   </div>
-
+  
   <div class="actions">
     <%= f.submit 'Solicitar Cita' %>
   </div>
@@ -34,13 +28,4 @@
 
 
 
-<script type="text/javascript">
-  function validateForm() {
-    var checkboxes = document.querySelectorAll('input[name="appointment[dog_ids][]"]:checked');
-    if (checkboxes.length === 0) {
-      alert("Selecciona al menos un perro antes de enviar el formulario.");
-      return false; // Evitará que se envíe el formulario
-    }
-    return true; // Se enviará el formulario si al menos un check_box está seleccionado
-  }
-</script>
+
