@@ -26,29 +26,6 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
-
-  def update
-    # Find the user by ID
-    @user = User.find(current_user.id)
-
-    # Check if the user is updating the password
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-      params[:user][:password] = @user.password
-      params[:user][:password_confirmation] = @user.password
-    end
-
-    # Use the regular update method provided by Devise
-    if @user.update(account_update_params)
-      bypass_sign_in(@user)
-      set_flash_message! :notice, :updated
-      redirect_to after_update_path_for(@user)
-    else
-      clean_up_passwords @user
-      render :edit
-    end
-  end
-
-
   
   private
 
