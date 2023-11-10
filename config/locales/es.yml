@@ -16,6 +16,13 @@ es:
           email: "Correo Electrónico"
           password: "Contraseña"
           password_confirmation: "Confirmación de Contraseña"
+      adoption_posts:
+          dog_name: "Nombre"
+          dog_age: "Edad"
+          dog_sex: "Sexo"
+          dog_breed: "Raza"
+          dog_charac: "Características"
+          dog_history: "Historia"
     errors:
       models:
         dog:
@@ -29,6 +36,20 @@ es:
               blank: "La fecha de nacimiento del perro no puede estar en blanco"
             image:
               blank: "La foto del perro no puede estar en blanco"
+        adoption_posts:
+          dog_name:
+            blank: "El nombre del perro no puede estar en blanco"
+          dog_age: 
+            blank: "La edad del perro no puede estar en blanco"
+          dog_sex: 
+            blank: "El sexo del perro no puede estar en blanco"
+          dog_breed: 
+            blank: "La raza del perro no puede estar en blanco"
+          dog_charac:
+            blank: "Las características del perro no pueden estar en blanco"
+          dog_history:
+            blank: "La historia del perro no puede estar en blanco"
+
         user:   
           attributes: 
             name:
@@ -48,5 +69,8 @@ es:
               taken: "El correo electrónico del usuario ya existe"
             password:
               blank: "La contraseña del usuario no puede estar en blanco"
+              too_short: "La contraseña del usuario debe tener al menos 6 caracteres"
             password_confirmation:
               blank: "La confirmación de contraseña del usuario no puede estar en blanco"
+              not_match: "La confirmación de contraseña del usuario no coincide con la contraseña"
+              too_short: "La contraseña del usuario debe tener al menos 6 caracteres"

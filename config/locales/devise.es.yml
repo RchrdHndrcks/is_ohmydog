@@ -37,12 +37,12 @@ es:
       updated_not_active: "Tu contraseña fue modificada correctamente."
     registrations:
       destroyed: "Adiós, tu cuenta ha sido eliminada. Esperamos verte de vuelta pronto!"
-      signed_up: "Bienvenido! Te has registrado correctamente."
+      signed_up: "Usuario registrado exitosamente."
       signed_up_but_inactive: "Te has registrado correctamente, pero tu cuenta aun no ha sido activada."
       signed_up_but_locked: "Te has registrado correctamente, pero tu cuenta está bloqueada."
       signed_up_but_unconfirmed: "Te hemos enviado un email con instrucciones para que confirmes tu cuenta."
       update_needs_confirmation: "Actualizaste tu cuenta correctamente, pero tenemos que revalidar tu email. Revisa tu correo para confirmar la dirección."
-      updated: "Actualizaste tu cuenta correctamente."
+      updated: "Usuario actualizado exitosamente."
       updated_but_not_signed_in: "Actualizaste tu cuenta correctamente, pero tienes que iniciar sesión nuevamente porque tu contraseña ha cambiado."
     sessions:
       signed_in: "Iniciaste sesión correctamente."

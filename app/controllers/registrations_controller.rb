@@ -33,7 +33,8 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.find(params[:user][:id])
     puts "User ID being received: #{params[:id]}"
     if @user.update(user_params)
-      redirect_to root_path, notice: 'User was successfully updated.'
+      redirect_to root_path #, notice: 'User was successfully updated.'
+      set_flash_message! :notice, :updated
     else
       render :edit
     end

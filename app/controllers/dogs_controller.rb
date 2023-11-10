@@ -10,12 +10,16 @@ class DogsController < ApplicationController
       
       def create
         @dog = Dog.new(dog_params) # Crea un nuevo perro con los parámetros que vienen del formulario
+        Rails.logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        Rails.logger.debug(dog_params)
         if @dog.save
           redirect_to root_path, notice: 'Perro registrado exitosamente'
         else
           render :new
+          flash[:alert] = 'No se pudo registrar el perro'
         end
       end
+
   def show
     @dog = Dog.find(params[:user_id])
     #@user = @dog.user
