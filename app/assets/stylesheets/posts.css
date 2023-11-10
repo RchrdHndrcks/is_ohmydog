@@ -95,3 +95,61 @@
     right: 0;
     transform: rotate(-45deg) scale(2);
   }
+
+  .adoption-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #2596be;
+    padding: 20px;
+    border: 5px solid #f8934f;
+    border-radius: 15px;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.adoption-posts-font {
+    color: white;
+}
+
+.form-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 0;
+}
+
+.adoption-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    color: #fff;
+    background-color: #f8934f;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #f8934f;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    background-color: #d47833;
+}
