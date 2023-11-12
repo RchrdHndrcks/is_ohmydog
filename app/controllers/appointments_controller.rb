@@ -87,25 +87,30 @@ class AppointmentsController < ApplicationController
     end
   end
 
- # def update_state
- #   @appointment = Appointment.find(params[:id])
- #   if @appointment.update(state: params[:appointment][:state])
- #     flash[:notice] = "Se ha cargado la fecha"
- #     render 'index'
- #   else
- #     flash[:notice] = "error al cargar la fecha"
- #     render 'index'
- #   end
- # end
+  def update_state
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(state: params[:appointment][:state])
+      flash[:notice] = "Se ha cargado el estado"
+      redirect_to appointments_path
+    else
+      flash[:notice] = "error al cargar la fecha"
+      render 'index'
+    end
+  end
 
   def update_date
     @appointment = Appointment.find(params[:id])
-    if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
-      redirect_to appointments_path
-      flash[:notice] = "Se ha cargado la fecha"
+    if params[:appointment][:appointment_date].present?  
+      if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
+        redirect_to appointments_path
+        flash[:notice] = "Se ha cargado la fecha"
+      else
+        redirect_to appointments_path
+        flash[:notice] = "error al cargar la fecha"
+      end
     else
-      render 'index'
-      flash[:notice] = "error al cargar la fecha"
+      redirect_to appointments_path
+      flash[:notice] = "Debe seleccionar una fecha"
     end
   end
 
