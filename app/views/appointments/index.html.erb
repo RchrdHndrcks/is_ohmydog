@@ -1,6 +1,61 @@
 <!DOCTYPE html>
 <html>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.css' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js' %>
+  <!-- Otras inclusiones -->
+</head>
+
+</head>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #333; /* Color de texto principal */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Línea divisoria */
+  }
+
+  th {
+    background-color: #2596be; /* Color de fondo del encabezado */
+    color: #ffffff; /* Color de texto en el encabezado */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2; /* Fondo de filas pares */
+  }
+
+  /* Estilo para resaltar algunas partes con colores especificados */
+  .highlight1 {
+    background-color: #f8934f;
+    color: #ffffff;
+  }
+
+  .highlight2 {
+    background-color: #2596be;
+    color: #ffffff;
+  }
+</style>
+
   <h1>Turnos en Espera</h1>
   <table>
     <thead>
@@ -26,11 +81,16 @@
           </td>
           <% if current_user.es_admin? %>
             <td><%= User.find(appointment.user_id).email %></td>
-            <td>  
+            <td>
               <%= form_with(model: appointment, url: update_date_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-              <%= f.label :appointment_date %>
-              <%= f.datetime_field :appointment_date, id: "datetimepicker" %>
-              <%= f.submit "Confirmar", class: "button" %>
+                <%= f.text_field :appointment_date, id: "appointment_date"  %>
+                <%= f.submit "Confirmar", class: "button", id: "confirmButton", onclick: "return confirm('Are you sure you want to confirm this appointment?')" %>
+              <% end %>
+            </td>
+            <td>  
+            <%= form_with(model: appointment, url: update_state_appointment_path(appointment), method: :patch, remote: true) do |f| %>
+              <%= f.hidden_field :state, value: "rechazado" %>
+              <%= f.submit "Rechazar", class: "button", id: "rechazar-btn" %>
             <% end %>
             </td>
           <% end %>
@@ -69,5 +129,74 @@
     </tbody>
   </table>
 
+  <h1>Turnos Rechazados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Perros</th> 
+        <th>Franja</th>
+        <% if current_user.es_admin? %>
+        <th>Correo</th>
+      <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointments_rechazados.each do |appointment| %>
+        <tr>
+          <td>
+            <ul>
+              <% appointment.dogs.each do |dog| %>
+                <li><%= dog.name %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= appointment.timeSlot %></td>
+          <% if current_user.es_admin? %>
+            <td><%= User.find(appointment.user_id).email %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var rechazarBtn = document.getElementById("rechazar-btn");
+
+    rechazarBtn.addEventListener("click", function(event) {
+      // Muestra un mensaje de confirmación al usuario
+      if (!confirm("¿Estás seguro de que quieres rechazar la cita?")) {
+        // Si el usuario cancela, evita enviar el formulario
+        event.preventDefault();
+      }
+    });
+  });
+</script>
+
+<script>
+
+
+  flatpickr("#appointment_date", {
+    enableTime: true, 
+    dateFormat: "Y-m-d H:i",
+    minDate: "today",
+    maxDate: new Date().fp_incr(30),
+    disable: [
+      function(date) {
+        // return true to disable
+        return (date.getDay() === 0 || date.getDay() === 6);
+
+      }
+    ],
+    locale: {
+      firstDayOfWeek: 1 // start week on Monday
+    }
+  });
+
+
+  
+  
+
+</script>
