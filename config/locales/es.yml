@@ -12,7 +12,7 @@ es:
           last_name: "Apellido"
           address: "Dirección"
           phone_number: "Teléfono"
-          identifier_number: "Número de Identificación"
+          identifier_number: "DNI"
           email: "Correo Electrónico"
           password: "Contraseña"
           password_confirmation: "Confirmación de Contraseña"
