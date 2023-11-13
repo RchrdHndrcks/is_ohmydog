@@ -1,6 +1,7 @@
 .home_title {
     color: orange;
     text-align:center;
+    transition: background-color 0.1s; /* Agrega una transición a la propiedad background-color */
   }
   
 .home_bar {
@@ -39,4 +40,9 @@
     padding: 5px 10px;
     cursor: pointer;
     margin-top: 10px;
+  }
+  
+  .button:active {
+    background-color: #f8934f; /* Cambia el color de fondo al hacer clic */
+    color: #ffffff; /* Cambia el color del texto al hacer clic */
   }

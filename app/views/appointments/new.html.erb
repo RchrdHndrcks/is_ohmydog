@@ -1,6 +1,12 @@
 <!-- app/views/appointment/new.html.erb -->
 
-<h1>Nuevo Turno</h1>
+<head>
+  <!-- Otras inclusiones -->
+  <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js' %>
+  <!-- Otras inclusiones -->
+</head>
 
 <% if flash[:alert] %>
 <div id="alert-message">
@@ -9,23 +15,86 @@
 </div>
 <% end %>
 
+<h1 style="text-align: center;">Nuevo Turno</h1>
 
 <%= form_for @appointment, html: { id: 'appointment-form', onsubmit: 'return validateForm()' } do |f| %>
-  <div class="field">
-    <%= f.label :timeSlot %>
-    <%= f.select :timeSlot, Appointment.timeSlots.keys %>
-  </div>
+  <div class="form-container">
+    <div class="form-field">
+      <%= f.label :timeSlot %>
+      <%= f.select :timeSlot, Appointment.timeSlots.keys, { include_blank: 'Seleccione Franja Horaria' }, class: 'input-field' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :dog_ids %>
-    <%= f.collection_check_boxes :dog_ids, @user_dogs, :id, :name %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit 'Solicitar Cita' %>
+    <div class="form-field">
+      <%= f.label :dog_ids, 'Nombre perro/s' %>
+      <div class="button-group">
+        <% @user_dogs.each do |dog| %>
+          <%= label_tag "dog_#{dog.id}", dog.name, class: 'button clickable', data: { dog_id: dog.id } %>
+          <%= check_box_tag 'appointment[dog_ids][]', dog.id, false, id: "dog_#{dog.id}", style: 'display: none;' %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit 'Solicitar Cita', class: 'button' %>
+    </div>
   </div>
 <% end %>
 
+<script>
+  // Inicializar Select2 en el campo de selección múltiple
+  $(document).ready(function() {
+    $('.input-field').select2({
+      theme: 'bootstrap', // Puedes ajustar el tema según tus preferencias
+      width: '100%', // Ajusta el ancho según tus necesidades
+    });
+  });
+  
+  $(document).ready(function() {
+    $('.clickable').on('click', function() {
+      $(this).toggleClass('clicked');
+    });
+  });
+
+  
+</script>
+
+<style>
+
+  /* Estilo para el formulario */
+  form {
+    width: 50%;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+
+  /* Estilo para los campos de texto del formulario */
+  .input-field {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+
+  .form-actions {
+    text-align: center;
+  }
+
+  .button.clicked {
+  background-color: #f8934f; /* Cambia el color de fondo después de hacer clic */
+  color: #ffffff; /* Cambia el color del texto después de hacer clic */
+  /* Otros estilos que desees aplicar cuando el botón está clickeado */
+}
+
+</style>
 
 
 
