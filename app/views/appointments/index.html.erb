@@ -23,28 +23,33 @@
   }
 
   table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 20px auto; /* Centra horizontalmente */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+  
 
   th, td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd; /* Línea divisoria */
+    vertical-align: middle;
   }
 
   th {
-    background-color: #2596be; /* Color de fondo del encabezado */
-    color: #ffffff; /* Color de texto en el encabezado */
+    position: relative;
+    background-color: #2596be;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1000px;
+    margin-bottom: 35px;
   }
 
   tr:nth-child(even) {
     background-color: #f2f2f2; /* Fondo de filas pares */
   }
 
-  /* Estilo para resaltar algunas partes con colores especificados */
   .highlight1 {
     background-color: #f8934f;
     color: #ffffff;
@@ -53,16 +58,16 @@
   .highlight2 {
     background-color: #2596be;
     color: #ffffff;
-  }
-</style>
+      }
+    </style>
 
-  <h1>Turnos en Espera</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Franja Horaria</th>
-        <th>Perros</th>
-        <% if current_user.es_admin? %>
+      <h1 style="text-align: center;">Turnos en Espera</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Franja Horaria</th>
+            <th>Perros</th>
+            <% if current_user.es_admin? %>
           <th>Correo</th>
           <th>Acciones</th>
         <% end %>
@@ -99,7 +104,7 @@
     </tbody>
   </table>
 
-  <h1>Proximos turnos</h1>
+  <h1 style="text-align: center;">Proximos turnos</h1>
   <table>
     <thead>
       <tr>
@@ -129,7 +134,7 @@
     </tbody>
   </table>
 
-  <h1>Turnos Rechazados</h1>
+  <h1 style="text-align: center;">Turnos Rechazados</h1>
   <table>
     <thead>
       <tr>

@@ -1,6 +1,7 @@
 .home_title {
     color: orange;
     text-align:center;
+    transition: background-color 0.1s; /* Agrega una transición a la propiedad background-color */
   }
   
 .home_bar {
@@ -9,6 +10,10 @@
     padding-top: 20px;
     padding-bottom: 20px;
     text-align:center;
+  }
+
+  .body{
+    cursor: url('https://assets.stickpng.com/images/58af004d6c252499281ae910.png'),auto;
   }
 
   .button {
@@ -40,3 +45,13 @@
     cursor: pointer;
     margin-top: 10px;
   }
+  
+  .button:active {
+    background-color: #f8934f; /* Cambia el color de fondo al hacer clic */
+    color: #ffffff; /* Cambia el color del texto al hacer clic */
+  }
+  .button:hover {
+    background-color: #f8934f; /* Cambia el color de fondo al pasar el mouse */
+    color: #ffffff; /* Cambia el color del texto al pasar el mouse */
+  }
+
