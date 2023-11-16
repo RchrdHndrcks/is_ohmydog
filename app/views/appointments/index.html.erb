@@ -88,7 +88,7 @@
             <td><%= User.find(appointment.user_id).email %></td>
             <td>
               <%= form_with(model: appointment, url: update_date_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-                <%= f.text_field :appointment_date, id: "appointment_date"  %>
+                <%= f.date_field :appointment_date, id: "appointment_date", class: "button", placeholder: "Elegir fecha" %>
                 <%= f.submit "Confirmar", class: "button", id: "confirmButton", onclick: "return confirm('Are you sure you want to confirm this appointment?')" %>
               <% end %>
             </td>
@@ -97,6 +97,7 @@
               <%= f.hidden_field :state, value: "rechazado" %>
               <%= f.submit "Rechazar", class: "button", id: "rechazar-btn" %>
             <% end %>
+
             </td>
           <% end %>
         </tr>

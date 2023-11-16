@@ -7,6 +7,8 @@ class CreateDog < ActiveRecord::Migration[7.1]
       t.string :breed
       t.datetime :birthdate
       t.string :image
+      t.string :colour
+      t.string :observations
     end
   end
 end
