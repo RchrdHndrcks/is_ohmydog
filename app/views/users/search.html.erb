@@ -1,6 +1,6 @@
 <%= form_tag users_search_path, method: :get, class: "search-form" do %>
   <div class="search-container">
-    <%= text_field_tag :query, params[:query], placeholder: "Buscar usuarios por nombre o email", class: "search-input" %>
+    <%= text_field_tag :query, params[:query], placeholder: "Buscar usuarios por DNI o email", class: "search-input" %>
     <%= submit_tag "Buscar", class: "search-button" %>
   </div>
 <% end %>
