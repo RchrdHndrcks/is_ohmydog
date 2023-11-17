@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: [:search]
   def search
     if params[:query].present?
-      @users = User.where("name LIKE :query OR email LIKE :query", query: "%#{params[:query]}%")
+      @users = User.where("identifier_number LIKE :query OR email LIKE :query", query: "%#{params[:query]}%")
     else
       @users = User.all
     end

@@ -3,22 +3,30 @@ class DogsController < ApplicationController
   before_action :authenticate_user!
   before_action :admin_user, only: [:new, :create]
 
-    def new
-        #@user = User.find(params[:user_id]) # Obtén el usuario a partir del ID pasado como parámetro
-        @dog = Dog.new # Crea un nuevo perro
-      end
-      
-      def create
-        @dog = Dog.new(dog_params) # Crea un nuevo perro con los parámetros que vienen del formulario
-        Rails.logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        Rails.logger.debug(dog_params)
-        if @dog.save
-          redirect_to root_path, notice: 'Perro registrado exitosamente'
-        else
-          render :new
-          flash[:alert] = 'No se pudo registrar el perro'
+  def new
+    @user_id = params[:user_id] # Store the user_id parameter
+    @dog = Dog.new # Create a new dog
+  end
+
+  def create
+    @dog = Dog.new(dog_params) # Create a new dog with the parameters from the form
+    Rails.logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    Rails.logger.debug(dog_params)
+    if @dog.save
+      redirect_to root_path, notice: 'Perro registrado exitosamente'
+    else
+      if @dog.errors.any?
+        @dog.errors.full_messages.each do |message|
+          Rails.logger.debug(message)
+          flash[:alert] = message
         end
       end
+      @user_id = params[:dog][:user_id] # Store the user_id parameter
+      render :new, locals: { user_id: @user_id } # Pass the user_id as a local variable to the new view
+      Rails.logger.debug("AAAAAAAasdjsajhjbhdadhajbahbdjad")
+      Rails.logger.debug(@user_id)
+    end
+  end
 
   def show
     @dog = Dog.find(params[:user_id])
