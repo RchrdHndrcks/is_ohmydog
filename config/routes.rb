@@ -33,4 +33,9 @@ Rails.application.routes.draw do
   resources :dogs, only: [:new, :create, :show, :index]
   #---------------------------------------------------------------------------------------------------------#
 
+
+  resources :contact_posts
+
+  get '/paseadores_cuidadores', to: 'contact_posts#index', as: 'paseadores_cuidadores'
+
 end

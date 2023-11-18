@@ -11,7 +11,11 @@
     <%= javascript_importmap_tags %>
 
     <p class="home_bar">
-    Novedades&emsp; <a class="button" href="<%= adoption_posts_path %>">Adopciones</a>&emsp; Paseadores/Cuidadores&emsp;
+    Novedades&emsp; <a class="button" href="<%= adoption_posts_path %>">Adopciones</a>&emsp;
+
+    <% if current_user %>
+        <%= link_to "Paseadores/Cuidadores", paseadores_cuidadores_path, class: "button" %>
+    <% end %>
 
     <% if current_user && !current_user.es_admin %>
  

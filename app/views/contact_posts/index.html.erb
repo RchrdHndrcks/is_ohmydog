@@ -1,0 +1,78 @@
+<!-- app/views/contact_posts/index.html.erb -->
+<div id="contact-posts-container">
+  <div id="contact-posts-header">
+    <h1>Publicaciones de Paseadores/Cuidadores</h1>
+    <% if current_user.es_admin? %>
+      <%= link_to "Agregar Contacto", new_contact_post_path, class: "button", id: "add-contact-button" %>
+    <% end %>
+  </div>
+
+  <% if @contact_posts.size > 0 %>
+    <% @contact_posts.each do |contact_post| %>
+      <div class="contact-post">
+        <div class="contact-info">
+          <h2><%= contact_post.name %></h2>
+          <p><strong>Email:</strong> <%= contact_post.email %></p>
+          <p><strong>Teléfono:</strong> <%= contact_post.phone_number %></p>
+          <p><strong>Trabajo:</strong> <%= contact_post.role %></p>
+        </div>
+
+        <div class="contact-buttons">
+          <% if user_signed_in? && !current_user.es_admin? %>
+            <%= button_tag "Contactar", class: "button" %>
+          <% elsif current_user.es_admin? %>
+            <%= button_tag "Editar", class: "button" %>
+            <%= button_tag "Eliminar", class: "button" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="no-posts">
+      <h2>Aún no hay publicaciones creadas</h2>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  #contact-posts-container {
+    text-align: center;
+  }
+
+  #contact-posts-header {
+    margin-bottom: 20px;
+  }
+
+  .contact-post {
+    border: 5px solid #2596be;
+    border-radius: 20px;
+    padding: 1px;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color:#f8934f;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .contact-info {
+    flex-grow: 1; /* Hace que este elemento crezca para ocupar el espacio disponible */
+  }
+
+  .contact-buttons {
+    display: flex;
+    flex-direction: column; /* Alinea los botones uno encima del otro */
+    align-items: flex-end; /* Alinea los botones a la derecha */
+  }
+
+  .no-posts {
+    margin-top: 20px;
+    color: #888;
+  }
+
+  
+/* Agrega un borde inferior para separar visualmente los contact posts */
+.contact-post:not(:last-child) {
+  border-bottom: 1px solid #3498db;
+}
+</style>
