@@ -6,4 +6,23 @@
   .field-with-errors {
     border: 1px solid red;
   }
-
+  
+#contact-posts-container {
+    text-align: center;
+  } 
+#contact-posts-header {
+    margin-bottom: 20px; /* Espacio entre el encabezado y las publicaciones */
+  }
+  
+  .contact-post {
+    border: 1px solid #ddd; /* Borde para resaltar cada publicación */
+    padding: 10px;
+    margin-bottom: 20px; /* Espacio entre las publicaciones */
+    max-width: 600px; /* Ancho máximo de la publicación */
+    margin: 0 auto; /* Centrar la publicación */
+  }
+  
+  .no-posts {
+    margin-top: 20px; /* Espacio en la parte superior cuando no hay publicaciones */
+    color: #888; /* Color de texto más claro para el mensaje sin publicaciones */
+  }
