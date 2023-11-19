@@ -24,7 +24,8 @@ es:
         dog_charac: "Características"
         dog_history: "Historia"
       appointment:
-        date: "Fecha"
+        appointment_date: "Fecha"
+        timeSlot: "Franja Horaria"
         time: "Hora"
         user_id: "Usuario"
         adoption_post_id: "Publicación de Adopción"

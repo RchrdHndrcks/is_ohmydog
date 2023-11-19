@@ -79,10 +79,12 @@ class AppointmentsController < ApplicationController
       @appointments_en_espera = Appointment.where(state: 'en_espera')
       @appointments_aceptados = Appointment.where(state: 'aceptado')
       @appointments_rechazados = Appointment.where(state: 'rechazado')
+      @appointments_cancelados = Appointment.where(state: 'cancelado')
     else
       @appointments_en_espera = Appointment.where(user_id: current_user.id, state: 'en_espera')
       @appointments_aceptados = Appointment.where(user_id: current_user.id, state: 'aceptado')
       @appointments_rechazados = Appointment.where(user_id: current_user.id, state: 'rechazado')
+      @appointments_cancelados = Appointment.where(user_id: current_user.id, state: 'cancelado')
 
     end
   end

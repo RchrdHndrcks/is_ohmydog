@@ -3,8 +3,8 @@ default: &default
   encoding: unicode
   pool: 5
   host: localhost
-  port: 5432
-  username: matiluga
+  port: 5433
+  username: omd
   password: omd
 
 development:
