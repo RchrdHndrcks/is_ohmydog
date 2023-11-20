@@ -81,3 +81,5 @@ gem 'jquery-rails'
 gem 'fullcalendar-rails'
 
 gem 'image_processing'
+
+gem 'rails-ujs'

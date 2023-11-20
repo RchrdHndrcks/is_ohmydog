@@ -8,6 +8,7 @@ class AdoptionPostsController < ApplicationController
   end
 
   def new
+    @page_title = "Crear post de adopcion"
     @adoption_post = AdoptionPost.new
   end
 
@@ -21,9 +22,22 @@ class AdoptionPostsController < ApplicationController
     end
   end
 
+  def destroy
+    # Lógica para eliminar un post
+    # Asegúrate de tener la lógica adecuada para eliminar el post según su ID.
+    post = AdoptionPost.find(params[:id])
+    post.destroy
+
+    #redirect_to adoption_posts_path
+  rescue ActionController::InvalidAuthenticityToken
+    render plain: 'Invalid authenticity token', status: :unprocessable_entity
+  end
+
+
   private
 
   def adoption_post_params
     params.require(:adoption_post).permit(:dog_name, :dog_age, :dog_sex, :dog_breed, :dog_charac, :dog_history, :user_id)
   end
+
 end

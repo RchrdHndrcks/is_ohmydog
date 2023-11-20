@@ -186,3 +186,26 @@ p, h2 {
   margin: 0;
   padding: 0;
 }
+
+/* Ajusta estos estilos en tu archivo de estilos CSS */
+#notification-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff7b7b; /* Fondo rojizo */
+  color: #fff; /* Texto blanco */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  display: none;
+  align-items: center; /* Alinea los elementos verticalmente en el centro */
+}
+
+#close-btn {
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  margin-left: 10px; /* Agrega un margen izquierdo para separar el botón del texto */
+}
