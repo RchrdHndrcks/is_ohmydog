@@ -22,6 +22,21 @@ class AdoptionPostsController < ApplicationController
     end
   end
 
+  def edit
+    @page_title = "Editar post de adopcion"
+    @adoption_post = AdoptionPost.find(params[:id])
+  end
+  
+  def update
+    @adoption_post = AdoptionPost.find(params[:id])
+  
+    if @adoption_post.update(adoption_post_params)
+      redirect_to adoption_posts_path
+    else
+      render 'edit'
+    end
+  end
+
   def destroy
     # Lógica para eliminar un post
     # Asegúrate de tener la lógica adecuada para eliminar el post según su ID.

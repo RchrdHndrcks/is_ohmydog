@@ -187,6 +187,14 @@ p, h2 {
   padding: 0;
 }
 
+/* Agrega estos estilos a tu archivo de estilos CSS */
+.edit-link {
+  /* Copia los estilos actuales del botón si es necesario */
+  text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
+  color: #fff; /* Cambia el color del texto según tus preferencias */
+  /* Otros estilos según sea necesario */
+}
+
 /* Ajusta estos estilos en tu archivo de estilos CSS */
 #notification-bar {
   position: fixed;

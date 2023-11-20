@@ -3,6 +3,10 @@
 <script>
   const postIds = <%= raw @adoption_posts_ids.to_json %>;
 
+  function redirectToEdit(postId) {
+    window.location.href = `/adoption_posts/${postId}/edit`;
+  }
+
   // Función para mostrar el mensaje de confirmación y eliminar el post
   function confirmDelete(postId) {
     const confirmMessage = "¿Estás seguro de que quieres eliminar esta publicación?";
@@ -68,7 +72,9 @@
             <div class="adoption-posts-title">
                 <h2 class="adoption-posts-font"> <%= post.dog_name %> </h2>
                 <% if user_signed_in? && current_user == post.user %>
-                    <button id="edit-btn-<%= post.id %>" class="post-edit-btn">Editar</button>
+                    <button id="edit-btn-<%= post.id %>" class="post-edit-btn" onclick="redirectToEdit(<%= post.id %>)">
+                        Editar
+                    </button>
                 <% end %>
                 <% if user_signed_in? && (current_user == post.user || current_user.es_admin) %>
                     <button onclick="confirmDelete(<%= post.id %>)" class="post-delete-btn">Eliminar</button>
