@@ -29,6 +29,7 @@ class AppointmentsController < ApplicationController
           Rails.logger.debug("entro------a save--create-----------------------------------------------------------------------------")
           redirect_to new_appointment_path
           flash[:notice] = "Se ha creado el turno"
+          AppointmentMailer.confirmed_appointment_email(@appointment).deliver_later
         else
           #render 'new'
           redirect_to root_path
@@ -94,6 +95,12 @@ class AppointmentsController < ApplicationController
     if @appointment.update(state: params[:appointment][:state])
       flash[:notice] = "Se ha cargado el estado"
       redirect_to appointments_path
+      if params[:appointment][:state] == 'rechazado'
+        AppointmentMailer.rejected_appointment_email(@appointment).deliver_later
+      end
+      if params[:appointment][:state] == 'cancelado'
+        AppointmentMailer.canceled_appointment_email(@appointment).deliver_later
+      end
     else
       flash[:notice] = "error al cargar la fecha"
       render 'index'
@@ -105,7 +112,8 @@ class AppointmentsController < ApplicationController
     if params[:appointment][:appointment_date].present?  
       if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
         redirect_to appointments_path
-        flash[:notice] = "Se ha cargado la fecha"
+        flash[:notice] = "Se ha cargado la fecha" 
+        AppointmentMailer.acepted_appointment_email(@appointment).deliver_later
       else
         redirect_to appointments_path
         flash[:notice] = "error al cargar la fecha"
@@ -115,6 +123,7 @@ class AppointmentsController < ApplicationController
       flash[:notice] = "Debe seleccionar una fecha"
     end
   end
+
 
   private
 
