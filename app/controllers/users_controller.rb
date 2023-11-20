@@ -9,6 +9,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:user_id])
+    @page_title = "Perfil de " + @user.name
+    # Otras acciones que puedas necesitar para mostrar el perfil del usuario
+  end
+
+
   private
 
   def admin_user
