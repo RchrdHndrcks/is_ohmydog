@@ -13,6 +13,7 @@
   <p> <%= f.label :Telefono %><br /> <%= f.text_field :phone_number%> </p>
 </div>
 
+<% if current_user.es_admin %>
 <div class="field">
  <label>DNI</label><br />
   <%= f.number_field :identifier_number, autofocus: true, autocomplete: "DNI" %>
@@ -22,6 +23,8 @@
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
+
+<% end %>
 
   <div class="actions">
     <%= f.submit "Guardar" %>

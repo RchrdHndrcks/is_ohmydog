@@ -217,3 +217,13 @@ p, h2 {
   color: #fff;
   margin-left: 10px; /* Agrega un margen izquierdo para separar el botón del texto */
 }
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-button {
+  margin-top: -10px; /* Ajusta este valor según sea necesario */
+}
