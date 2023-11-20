@@ -1,0 +1,42 @@
+<!-- app/views/adoption_posts/edit.html.erb -->
+
+<%= form_with(model: @adoption_post, url: adoption_post_path(@adoption_post), method: :patch, class: "adoption-form") do |form| %>
+  <% if @adoption_post.errors.any? %>
+    <h2>Todos los campos son necesarios</h2>
+  <% end %>
+
+  <div class="field">
+    <label class="adoption-posts-font">Nombre del perro</label>
+    <%= form.text_field :dog_name, class: "form-field" %>
+  </div>
+
+  <div class="field">
+  <label class="adoption-posts-font">Edad del perro</label>
+  <%= form.text_field :dog_age, class: "form-field" %>
+</div>
+
+<div class="field">
+  <label class="adoption-posts-font">Sexo del perro</label>
+  <%= form.text_field :dog_sex, class: "form-field" %>
+</div>
+
+<div class="field">
+  <label class="adoption-posts-font">Raza del perro</label>
+  <%= form.text_field :dog_breed, class: "form-field" %>
+</div>
+
+<div class="field">
+  <label class="adoption-posts-font">Caracteristicas del perro</label>
+  <%= form.text_area :dog_charac, class: "form-field" %>
+</div>
+
+<div class="field">
+  <label class="adoption-posts-font">Historia del perro</label>
+  <%= form.text_area :dog_history, class: "form-field" %>
+</div>
+
+  <div class="actions">
+    <%= form.submit "Guardar cambios", class: "btn btn-primary" %>
+    <%= link_to 'Cancelar', adoption_posts_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
