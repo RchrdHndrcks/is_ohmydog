@@ -26,3 +26,14 @@
     margin-top: 20px; /* Espacio en la parte superior cuando no hay publicaciones */
     color: #888; /* Color de texto más claro para el mensaje sin publicaciones */
   }
+
+  .home_bar {
+    position: relative;
+  }
+  
+  .user-profile-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px; /* Ajusta el margen según sea necesario */
+  }

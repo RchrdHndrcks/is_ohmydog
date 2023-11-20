@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   #-------------------- Rutas para la creación de usuarios utilizando UsersController --------------------------#
   get 'users/search', to: 'users#search', as: 'users_search'
+  get 'users/show', to: 'users#show', as: 'users_show'
   get 'users/edit', to: 'registrations#edit', as: 'edit_user'
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

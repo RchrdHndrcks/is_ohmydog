@@ -1,0 +1,37 @@
+<div class="adoption-posts-container">
+<% if current_user && current_user.es_admin %>
+<h1>Perfil de Usuario (Administrador)</h1>
+<% else %>
+<h1>Perfil de Usuario</h1>
+<% end %>
+  <div class="field">
+    <label class="adoption-posts-font">Nombre:</label>
+    <p>&emsp;<%= @user.name %></p>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Email:</label>
+    <p>&emsp;<%= @user.email %></p>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Número de DNI:</label>
+    <p>&emsp;<%= @user.identifier_number %></p>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Apellido:</label>
+    <p>&emsp;<%= @user.last_name %></p>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Dirección:</label>
+    <p>&emsp;<%= @user.address %></p>
+  </div>
+
+  <div class="field">
+    <label class="adoption-posts-font">Número de Teléfono:</label>
+    <p>&emsp;<%= @user.phone_number %></p>
+  </div>
+
+</div>

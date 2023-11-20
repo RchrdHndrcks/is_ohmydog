@@ -31,10 +31,14 @@
     <% end %>
 
     <% if user_signed_in? %>
-    <%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button" %>
+      <%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "button" %>
+      <%= link_to users_show_path(user_id: current_user.id), class: "button" do %>
+        <i class="fas fa-user"></i>
+      <% end %>
     <% else %>
-      <%= link_to "Iniciar Sesión", new_user_session_path, class: "button" %>
+      <%= link_to "Iniciar Sesión", new_user_session_path, class: "button user-profile-button" %>
     <% end %>
+
   </p>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
