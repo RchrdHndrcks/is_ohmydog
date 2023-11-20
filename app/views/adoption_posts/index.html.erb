@@ -2,6 +2,63 @@
 
 <script>
   const postIds = <%= raw @adoption_posts_ids.to_json %>;
+
+  // Función para mostrar el mensaje de confirmación y eliminar el post
+  function confirmDelete(postId) {
+    const confirmMessage = "¿Estás seguro de que quieres eliminar esta publicación?";
+    const isConfirmed = confirm(confirmMessage);
+
+    if (isConfirmed) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+        fetch(`/adoption_posts/${postId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response;
+        })
+        .then(data => {
+            // Almacenar un indicador en el Local Storage antes de recargar la página
+            localStorage.setItem('deleteConfirmation', 'true');
+      
+            // Realizar la recarga de la página después de eliminar el post
+            console.log('Post eliminado exitosamente. Recargando la página.');
+            window.location.reload();
+        })
+        .catch(error => {
+          console.error('Error al eliminar el post:', error);
+        });
+    }
+  }
+
+  // Agrega este código al final de tu script JavaScript
+    document.addEventListener('DOMContentLoaded', function () {
+    const deleteConfirmation = localStorage.getItem('deleteConfirmation');
+
+    if (deleteConfirmation === 'true') {
+        const notificationBar = document.getElementById('notification-bar');
+        const closeBtn = document.getElementById('close-btn');
+
+        notificationBar.style.display = 'block';
+
+        setTimeout(() => {
+        notificationBar.style.display = 'none';
+        localStorage.removeItem('deleteConfirmation');
+        }, 3000);
+
+        closeBtn.addEventListener('click', function () {
+        notificationBar.style.display = 'none';
+        localStorage.removeItem('deleteConfirmation');
+        });
+    }
+    });
 </script>
 
 <%= link_to "Añadir publicación", new_adoption_post_path, class: "btn btn-primary btn-floating position-fixed bottom-0 end-0 m-3" %>
@@ -14,7 +71,7 @@
                     <button id="edit-btn-<%= post.id %>" class="post-edit-btn">Editar</button>
                 <% end %>
                 <% if user_signed_in? && (current_user == post.user || current_user.es_admin) %>
-                    <button id="delete-btn-<%= post.id %>" class="post-delete-btn">Eliminar</button>
+                    <button onclick="confirmDelete(<%= post.id %>)" class="post-delete-btn">Eliminar</button>
                 <% end %>
             </div>
             <div>
@@ -39,3 +96,9 @@
         <h2>Aún no hay publicaciones creadas</h2>
     </div>
 <% end %>
+
+<!-- Modifica estos elementos en tu vista -->
+<div id="notification-bar">
+  <span>Publicación eliminada</span>
+  <span id="close-btn">&times;</span>
+</div>
