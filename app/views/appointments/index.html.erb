@@ -88,8 +88,8 @@
             <td><%= User.find(appointment.user_id).email %></td>
             <td>
               <%= form_with(model: appointment, url: update_date_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-                <%= f.text_field :appointment_date, id: "appointment_date"  %>
-                <%= f.submit "Confirmar", class: "button", id: "confirmButton", onclick: "return confirm('Are you sure you want to confirm this appointment?')" %>
+                <%= f.date_field :appointment_date, id: "appointment_date", class: "button", placeholder: "Elegir fecha" %>
+                <%= f.submit "Confirmar", class: "button", id: "confirmButton" %>
               <% end %>
             </td>
             <td>  
@@ -97,6 +97,7 @@
               <%= f.hidden_field :state, value: "rechazado" %>
               <%= f.submit "Rechazar", class: "button", id: "rechazar-btn" %>
             <% end %>
+
             </td>
           <% end %>
         </tr>
@@ -113,6 +114,7 @@
         <% if current_user.es_admin? %>
           <th>Correo</th>
         <% end %>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -129,6 +131,12 @@
           <% if current_user.es_admin? %>
             <td><%= User.find(appointment.user_id).email %></td>
           <% end %>
+          <td>
+            <%= form_with(model: appointment, url: update_state_appointment_path(appointment), method: :patch, remote: true) do |f| %>
+              <%= f.hidden_field :state, value: "cancelado" %>
+              <%= f.submit "Cancelar", class: "button", id: "cancelar-btn" %>
+            <% end %>
+          </td> 
         </tr>
       <% end %>
     </tbody>
@@ -163,6 +171,35 @@
       <% end %>
     </tbody>
   </table>
+<!-- esta funcion no esta en la hu, descomentar si el cliente quiere ver los turnos canceladors
+  <h1 style="text-align: center;">Turnos Cancelados</h1>
+  <table>
+    <thead> 
+      <tr> 
+        <th>Perros</th>
+        <th>Franja</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointments_cancelados.each do |appointment| %>
+        <tr>
+          <td>
+            <ul>
+              <% appointment.dogs.each do |dog| %>
+                <li><%= dog.name %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= appointment.timeSlot %></td>
+          <td><%= appointment.appointment_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+-->           
+
+        
 
 </html>
 
@@ -178,6 +215,34 @@
       }
     });
   });
+  
+  document.addEventListener("DOMContentLoaded", function() {
+    var cancelarBtn = document.getElementById("cancelar-btn");
+
+    cancelarBtn.addEventListener("click", function(event) {
+      // Muestra un mensaje de confirmación al usuario
+      if (!confirm("¿Estás seguro de que quieres cancelar la cita?")) {
+        // Si el usuario cancela, evita enviar el formulario
+        event.preventDefault();
+      }else{
+        alert("Se ha eliminado el turno");
+      }
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var confirmBtn = document.getElementById("confirmButton");
+
+    confirmBtn.addEventListener("click", function(event) {
+      // Muestra un mensaje de confirmación al usuario
+      if (!confirm("¿Estás seguro de que quieres confirmar la cita?")) {
+        // Si el usuario cancela, evita enviar el formulario
+        event.preventDefault();
+      }
+
+    });
+  });
+
 </script>
 
 <script>
@@ -187,7 +252,7 @@
     enableTime: true, 
     dateFormat: "Y-m-d H:i",
     minDate: "today",
-    maxDate: new Date().fp_incr(30),
+    
     disable: [
       function(date) {
         // return true to disable

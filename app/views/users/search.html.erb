@@ -1,22 +1,30 @@
-<%= form_tag users_search_path, method: :get do %>
-  <%= text_field_tag :query, params[:query], placeholder: "Buscar usuarios por nombre o email" %>
-  <%= submit_tag "Buscar" %>
+<%= form_tag users_search_path, method: :get, class: "search-form" do %>
+  <div class="search-container">
+    <%= text_field_tag :query, params[:query], placeholder: "Buscar usuarios por DNI o email", class: "search-input" %>
+    <%= submit_tag "Buscar", class: "search-button" %>
+  </div>
 <% end %>
 
 <% if params[:query].present? %>
   <% if @users.present? %>
-    <h2>Resultados de la búsqueda:</h2>
-    <ul>
-      <% @users.each do |user| %>
-        <li><%= user.name %> - <%= user.email %></li> 
-        <% if current_user && current_user.es_admin? %>
-        <%= link_to "Editar", edit_user_path(id: user.id) %>
-        <% end %>
-        <%= link_to "Registrar perro", new_dog_path(user_id: user.id) %>
-        <%= link_to "Ver Perros", dogs_path(user_id: user.id) %>
-      <% end %> 
-    </ul>
+    <div class="search-results">
+      <h2>Resultados de la búsqueda:</h2>
+      <ul>
+        <% @users.each do |user| %>
+          <li>
+            <span class="user-info">
+              <%= "#{user.name} #{user.last_name} - #{user.identifier_number} - #{user.email}" %>
+            </span>
+            <% if current_user && current_user.es_admin? %>
+              <%= link_to "Editar", edit_user_path(id: user.id), class: "action-button" %>
+            <% end %>
+            <%= link_to "Registrar perro", new_dog_path(user_id: user.id), class: "action-button" %>
+            <%= link_to "Ver Perros", dogs_path(user_id: user.id), class: "action-button" %>
+          </li>
+        <% end %> 
+      </ul>
+    </div>
   <% else %>
-    <p>No se encontraron usuarios.</p>
+    <p class="no-results">No se encontraron usuarios.</p>
   <% end %>
 <% end %>

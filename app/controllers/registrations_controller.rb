@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
-  before_action :check_admin, only: [:new, :create, :edit, :update]
+  before_action :check_admin, only: [:new, :create]
   skip_before_action :require_no_authentication, only: [:new, :create]
   Rails.logger.debug("paso before:action-------------------------------------------------------------------------------")
 

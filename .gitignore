@@ -39,5 +39,5 @@
 
 /node_modules
 
-database.yml
+config/database.yml
 /db/migrate/*.rb

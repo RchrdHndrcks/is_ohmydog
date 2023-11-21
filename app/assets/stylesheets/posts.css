@@ -172,3 +172,58 @@
 .btn-primary:hover, .btn-secondary:hover {
     background-color: #d47833;
 }
+
+.no-posts-message {
+  background-color: #ffcccc; /* Color rojo claro */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  color: #ff0000; /* Color del texto */
+}
+
+p, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+/* Agrega estos estilos a tu archivo de estilos CSS */
+.edit-link {
+  /* Copia los estilos actuales del botón si es necesario */
+  text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
+  color: #fff; /* Cambia el color del texto según tus preferencias */
+  /* Otros estilos según sea necesario */
+}
+
+/* Ajusta estos estilos en tu archivo de estilos CSS */
+#notification-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff7b7b; /* Fondo rojizo */
+  color: #fff; /* Texto blanco */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  display: none;
+  align-items: center; /* Alinea los elementos verticalmente en el centro */
+}
+
+#close-btn {
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  margin-left: 10px; /* Agrega un margen izquierdo para separar el botón del texto */
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-button {
+  margin-top: -10px; /* Ajusta este valor según sea necesario */
+}

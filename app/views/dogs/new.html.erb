@@ -1,24 +1,52 @@
-<%= form_for @dog do |f| %>
-  <label> Nombre </label>
-  <%= f.text_field :name %>
-  <%= render_error_messages_for(@dog, :name) %>
+<div class="form-container">
+  <%= form_for @dog do |f| %>
+    <div class="form-group">
+      <%= f.label :name, 'Nombre' %>
+      <%= f.text_field :name, class: 'form-control', id: 'dog_name' %>
+      <%= render_error_messages_for(@dog, :name) %>
+    </div>
 
-  <label> Raza </label>
-  <%= f.text_field :breed %>
-  <%= render_error_messages_for(@dog, :breed) %>
+    <div class="form-group">
+      <%= f.label :breed, 'Raza' %>
+      <%= f.text_field :breed, class: 'form-control', id: 'dog_breed' %>
+      <%= render_error_messages_for(@dog, :breed) %>
+    </div>
 
-  <label> Fecha de Nacimiento </label>
-  <%= f.date_field :birthdate %>
-  <%= render_error_messages_for(@dog, :birthdate) %>
-  
-  <label> Foto </label>
-  <%= f.file_field :image %>
-  <%= render_error_messages_for(@dog, :image) %>
+    <div class="form-group">
+      <%= f.label :birthdate, 'Fecha de Nacimiento' %>
+      <%= f.date_field :birthdate, class: 'form-control', id: 'dog_birthdate' %>
+      <%= render_error_messages_for(@dog, :birthdate) %>
+    </div>
 
-  <%= f.hidden_field :user_id, value: params[:user_id] %>
+    <div class="form-group">
+      <%= f.label :colour, 'Color' %>
+      <%= f.text_field :colour, class: 'form-control', id: 'dog_colour' %>
+      <%= render_error_messages_for(@dog, :colour) %>
+    </div>
 
-  <%= f.submit 'Registrar Perro' %>
-<% end %>
+    <div class="form-group">
+      <%= f.label :observations, 'Observaciones' %>
+      <%= f.text_field :observations, class: 'form-control', id: 'dog_observations' %>
+      <%= render_error_messages_for(@dog, :observations) %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image, 'Foto', class: 'text-white' %> 
+        <%= f.file_field :image, id: 'dog_image' %>
+        <%= render_error_messages_for(@dog, :image) %>
+      </div>
+
+
+    <% if params[:user_id] %>
+      <%= f.hidden_field :user_id, value: params[:user_id] %> <!-- Store the user_id parameter when is call with redirect-->
+    <% else %>
+      <%= f.hidden_field :user_id, value: @user_id %> <!-- Store the user_id parameter when is call with reder :new-->
+    <% end %>
+
+
+    <%= f.submit 'Registrar Perro', class: 'btn btn-primary', id: 'new_dog_submit' %>
+  <% end %>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
@@ -31,29 +59,78 @@
       var isValid = true;
 
       if (!$('#dog_name').val()) {
-        $('#dog_name').after('<p class="error-message">Este campo es obligatorio</p>');
+        $('#dog_name').addClass('error-field');
         isValid = false;
+      } else {
+        $('#dog_name').removeClass('error-field');
       }
 
       if (!$('#dog_breed').val()) {
-        $('#dog_breed').after('<p class="error-message">Este campo es obligatorio</p>');
+        $('#dog_breed').addClass('error-field');
         isValid = false;
+      } else {
+        $('#dog_breed').removeClass('error-field');
       }
 
       if (!$('#dog_birthdate').val()) {
-        $('#dog_birthdate').after('<p class="error-message">Este campo es obligatorio</p>');
+        $('#dog_birthdate').addClass('error-field');
         isValid = false;
+      } else {
+        $('#dog_birthdate').removeClass('error-field');
       }
 
       if (!$('#dog_image').val()) {
-        $('#dog_image').after('<p class="error-message">Este campo es obligatorio</p>');
+        $('#dog_image').addClass('error-field');
         isValid = false;
+      } else {
+        $('#dog_image').removeClass('error-field');
+      }
+
+      if (!$('#dog_colour').val()) {
+        $('#dog_colour').addClass('error-field');
+        isValid = false;
+      } else {
+        $('#dog_colour').removeClass('error-field');
+      }
+
+      if (!$('#dog_observations').val()) {
+        $('#dog_observations').addClass('error-field');
+        isValid = false;
+      } else {
+        $('#dog_observations').removeClass('error-field');
       }
 
       // Si algún campo no es válido, evita el envío del formulario
       if (!isValid) {
         event.preventDefault();
+
+        // Muestra un mensaje de error general
+        $('#new_dog').prepend('<p class="error-message">Por favor, completa los campos marcados en rojo</p>');
+
+        // Mueve el foco al primer campo erróneo
+        $('.error-field').first().focus();
+
+        // Desplaza la página hasta el mensaje de error
+        $('html, body').animate({
+          scrollTop: $('.error-field').first().offset().top - 100
+        }, 300);
       }
     });
   });
 </script>
+
+<style>
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #2596be; /* Color de fondo */
+  border: 5px solid #f8934f; /* Color del borde */
+  border-radius: 15px; /* Bordes redondeados */
+}
+
+.error-field {
+  border-color: red !important;
+  border-width: 3px !important;
+}
+</style>

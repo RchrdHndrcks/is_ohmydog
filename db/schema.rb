@@ -37,6 +37,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024344) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
+
+  create_table "adoption_posts", force: :cascade do |t|
+    t.string "dog_name"
+    t.integer "dog_age"
+    t.string "dog_sex"
+    t.string "dog_breed"
+    t.string "dog_charac"
+    t.string "dog_history"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_adoption_posts_on_user_id"
+  end
+
   create_table "active_storage_blobs", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
@@ -92,6 +106,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024344) do
     t.string "breed"
     t.datetime "birthdate"
     t.string "image"
+    t.string "colour"
+    t.string "observations"
     t.index ["user_id"], name: "index_dogs_on_user_id"
   end
 

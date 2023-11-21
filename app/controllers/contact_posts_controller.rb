@@ -20,7 +20,11 @@ class ContactPostsController < ApplicationController
         if @contact_post.save
             redirect_to paseadores_cuidadores_path, notice: 'Contacto creado exitosamente.'
         else
+<<<<<<< HEAD
             flash.now[:alert] = 'Por favor, complete todos los campos.'
+=======
+            flash.now[:alert] = 'Error al crear el contacto.'
+>>>>>>> main
             render :new
         end
     end
