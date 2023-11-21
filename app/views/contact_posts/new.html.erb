@@ -11,19 +11,41 @@
     </div>
   <% end %>
   -->
-
 <%= form_with(model: @contact_post, local: true) do |form| %>
-  <%= form.label :Nombre %>
-  <%= form.text_field :name %>
+  <div class="form-group">
+    <%= form.label :name, "Nombre" %>
+    <%= form.text_field :name, class: "form-control narrow-input" %>
+  </div>
 
-  <%= form.label :Email %>
-  <%= form.text_field :email %>
+  <div class="form-group">
+    <%= form.label :email, "Email" %>
+    <%= form.text_field :email, class: "form-control narrow-input" %>
+    <!--<% if @contact_post.errors[:email].any? %>
+      <p class="text-danger"><%= @contact_post.errors[:email].first %></p>
+    <% end %>
+    -->
+  </div>
 
-  <%= form.label :Numero_de_Telefono %>
-  <%= form.text_field :phone_number %>
+  <div class="form-group">
+    <%= form.label :phone_number, "Número de Teléfono" %>
+    <%= form.text_field :phone_number, class: "form-control narrow-input" %>
+  </div>
 
-  <%= form.label :Trabajo %>
-  <%= form.select :role, ['Paseador', 'Cuidador'], prompt: 'Seleccionar' %>
-
-  <%= form.submit 'Publicar' %>
+  <div class="form-group">
+  <%= form.label :role, "Trabajo" %>
+  <div class="input-group">
+    <%= form.select :role, ['Paseador', 'Cuidador'], { prompt: 'Seleccionar' }, class: "form-control narrow-input custom-select-width" %>
+    <div class="input-group-append">
+      <span class="input-group-text" style="max-width: 30px;"><i class="fas fa-chevron-down"></i></span>
+    </div>
+  </div>
+</div>
+  <%= form.submit 'Publicar', class: "btn btn-primary" %>
 <% end %>
+
+<style>
+.narrow-input {
+  width: 200px; /* Ajusta el ancho según tus preferencias */
+}
+
+</style>
