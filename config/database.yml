@@ -3,9 +3,10 @@ default: &default
   encoding: unicode
   pool: 5
   host: localhost
+  port: 5433
   username: omd
   password: omd
 
 development:
   <<: *default
-  database: omd_dev
+  database: omd_dev6
