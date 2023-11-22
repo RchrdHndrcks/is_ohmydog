@@ -21,7 +21,7 @@
   <div class="form-container">
     <div class="form-field">
       <%= f.label :timeSlot %>
-      <%= f.select :timeSlot, Appointment.timeSlots.keys, { include_blank: 'Seleccione Franja Horaria' }, class: 'input-field' %>
+      <%= f.select :timeSlot, Appointment.timeSlots.keys, { }, class: 'input-field' %>
     </div>
 
     <div class="form-field">
