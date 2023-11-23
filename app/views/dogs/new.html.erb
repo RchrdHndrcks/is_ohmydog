@@ -93,13 +93,6 @@
         $('#dog_colour').removeClass('error-field');
       }
 
-      if (!$('#dog_observations').val()) {
-        $('#dog_observations').addClass('error-field');
-        isValid = false;
-      } else {
-        $('#dog_observations').removeClass('error-field');
-      }
-
       // Si algún campo no es válido, evita el envío del formulario
       if (!isValid) {
         event.preventDefault();
