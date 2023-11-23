@@ -43,7 +43,7 @@ class AppointmentMailer < ApplicationMailer
         @dogs = AppointmentsDog.where(appointment_id: appointment.id).map do |appointment_dog|
           Dog.find(appointment_dog.dog_id).name
         end
-        @date = appointment.date
+        @date = appointment.appointment_date
         mail(to: @user.email, subject: 'Turno modificado')
     end
 
