@@ -31,9 +31,16 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(params[:user][:id])
-    puts "User ID being received: #{params[:id]}"
+    
+    # Si el checkbox no está marcado, elimina los campos relacionados con la contraseña
+    unless params[:change_password_checkbox]
+      params[:user].delete(:current_password)
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
     if @user.update(user_params)
-      redirect_to root_path #, notice: 'User was successfully updated.'
+      redirect_to root_path
       set_flash_message! :notice, :updated
     else
       render :edit
@@ -45,7 +52,7 @@ class RegistrationsController < Devise::RegistrationsController
   def user_params
     params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
   end
-
+  
   def check_admin
     Rails.logger.debug("entro----check-admin--------------------------------------------------------------------------------")
     unless current_user && current_user.es_admin?

@@ -1,4 +1,3 @@
-<!-- Tu formulario -->
 <h2>Edit User</h2>
 
 <%= form_for(@user, url: registration_path(@user)) do |f| %>
@@ -14,10 +13,8 @@
   </div>
 
   <div class="field">
-    <label>
-      <input type="checkbox" id="change_password_checkbox">
-      Cambiar contraseña
-    </label>
+    <%= f.check_box :change_password_checkbox %>
+    <%= f.label :change_password_checkbox, 'Cambiar contraseña' %>
   </div>
 
   <div id="password_fields" style="display: none;">
@@ -53,7 +50,7 @@
 <!-- Tu script JavaScript -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    var changePasswordCheckbox = document.getElementById("change_password_checkbox");
+    var changePasswordCheckbox = document.getElementById("user_change_password_checkbox");
     var passwordFields = document.getElementById("password_fields");
 
     changePasswordCheckbox.addEventListener("change", function () {
