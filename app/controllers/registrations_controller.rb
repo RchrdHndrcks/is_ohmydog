@@ -31,9 +31,18 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     @user = User.find(params[:user][:id])
-    puts "User ID being received: #{params[:id]}"
+    
+    # Si el checkbox no está marcado, elimina los campos relacionados con la contraseña
+    if params[:user][:change_password_checkbox] == "1"
+      update_password
+    else
+      params[:user].delete(:current_password)
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
     if @user.update(user_params)
-      redirect_to root_path #, notice: 'User was successfully updated.'
+      redirect_to root_path
       set_flash_message! :notice, :updated
     else
       render :edit
@@ -42,10 +51,18 @@ class RegistrationsController < Devise::RegistrationsController
   
   private
 
-  def user_params
-    params.require(:user).permit(:name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+  def update_password
+    # Agrega lógica para manejar la actualización de la contraseña aquí
+    # Puedes usar métodos de Devise para cambiar la contraseña sin cerrar la sesión
+    if @user.update_with_password(password_params)
+      bypass_sign_in(@user) # Evita cerrar la sesión después de cambiar la contraseña
+    end
   end
 
+  def user_params
+    params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+  end
+  
   def check_admin
     Rails.logger.debug("entro----check-admin--------------------------------------------------------------------------------")
     unless current_user && current_user.es_admin?
