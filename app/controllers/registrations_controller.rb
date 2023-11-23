@@ -73,7 +73,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def user_params
     params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+    params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
   end
+  
   
   def check_admin
     Rails.logger.debug("entro----check-admin--------------------------------------------------------------------------------")

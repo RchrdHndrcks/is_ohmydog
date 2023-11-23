@@ -10,8 +10,6 @@
   <%= stylesheet_link_tag 'application' %>
   <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.css' %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js' %>
-  <!-- Otras inclusiones -->
-</head>
 
 </head>
 
@@ -114,14 +112,14 @@
             <td><%= User.find(appointment.user_id).email %></td>
             <td>
               <%= form_with(model: appointment, url: update_date_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-                <%= f.date_field :appointment_date, class: "button_date", id: "calendar" %>
+                <%= f.datetime_field :appointment_date, class: "button_date", id: "calendar" %>
             </td>
             <td>
-            <%= f.submit "Confirm", class: "button", id: "confirmButton", onclick: "return confirm('Confirmar fecha?')" %>
+            <%= f.submit "Confirmar", class: "button", id: "confirmButton", onclick: "return confirm('Confirmar fecha?')" %>
             <% end %>
               <%= form_with(model: appointment, url: update_state_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-                <%= f.hidden_field :state, value: "rejected" %>
-                <%= f.submit "Reject", class: "button", id: "rejectButton", onclick: "return confirm('Seguro que deseas rechazar el turno?')" %>
+                <%= f.hidden_field :state, value: "rechazado" %>
+                <%= f.submit "Rechazar", class: "button", id: "rejectButton", onclick: "return confirm('Seguro que deseas rechazar el turno?')" %>
               <% end %>
             </td>
           <% end %>
@@ -146,7 +144,7 @@
     <tbody>
       <% @appointments_aceptados.each do |appointment| %>
         <tr>
-          <td><%= appointment.appointment_date %></td>
+            <td><%= appointment.appointment_date.strftime("%Y-%m-%d %H:%M:%S") %></td>
           <td>
             <ul>
               <% appointment.dogs.each do |dog| %>
@@ -159,10 +157,10 @@
             
           <td>
             <%= form_with(model: appointment, url: update_date_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-              <%= f.date_field :appointment_date, class: "button_date", id: "calendar" %>
+              <%= f.datetime_field :appointment_date, class: "button_date", id: "calendar" %>
           </td>
           <td>
-              <%= f.submit "Confirm", class: "button", id: "confirmButton", onclick: "return confirm('Confirmar edicion?')" %>
+              <%= f.submit "Confirmar", class: "button", id: "confirmButton", onclick: "return confirm('Confirmar edicion?')" %>
             <% end %>
           <% else %>
               <td>
@@ -236,12 +234,9 @@
   </table>
 -->           
 
-        
-
 </html>
 
 <script>
-
 
   flatpickr("#calendar", {
     enableTime: true, 
@@ -252,7 +247,6 @@
       function(date) {
         // return true to disable
         return (date.getDay() === 0 || date.getDay() === 6);
-
       }
     ],
     locale: {
