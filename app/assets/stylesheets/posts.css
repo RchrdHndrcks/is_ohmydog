@@ -227,3 +227,8 @@ p, h2 {
 .edit-button {
   margin-top: -10px; /* Ajusta este valor según sea necesario */
 }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between; /* Otra opción: space-around o space-evenly */
+}

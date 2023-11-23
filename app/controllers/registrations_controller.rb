@@ -26,27 +26,35 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @page_title = "Editar usuario"
     @user = User.find(params[:id])
   end
 
   def update
     @user = User.find(params[:user][:id])
     
-    # Si el checkbox no está marcado, elimina los campos relacionados con la contraseña
     if params[:user][:change_password_checkbox] == "1"
+      if params[:user][:current_password].blank?
+        flash[:alert] = "Debes proporcionar la contraseña actual para cambiar la contraseña."
+        render :edit and return
+      end
       update_password
     else
       params[:user].delete(:current_password)
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
-
+  
     if @user.update(user_params)
-      redirect_to root_path
+      redirect_to users_show_path(user_id: @user.id)
       set_flash_message! :notice, :updated
     else
       render :edit
     end
+  end
+
+  def after_sign_up_path_for(resource)
+    user_show_path(user_id: resource.id)
   end
   
   private
@@ -57,6 +65,10 @@ class RegistrationsController < Devise::RegistrationsController
     if @user.update_with_password(password_params)
       bypass_sign_in(@user) # Evita cerrar la sesión después de cambiar la contraseña
     end
+  end
+
+  def password_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
 
   def user_params

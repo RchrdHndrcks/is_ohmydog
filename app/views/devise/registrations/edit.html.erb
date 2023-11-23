@@ -1,60 +1,21 @@
-<h2>Edit User</h2>
 
-<%= form_for(@user, url: registration_path(@user)) do |f| %>
+<%= form_for(@user, url: registration_path(@user), html: { class: 'adoption-form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: @user %>
 
   <%= f.hidden_field :id, value: @user.id %>
 
   <div class="field">
-    <p><%= f.label :Nombre %><br /> <%= f.text_field :name %></p>
-    <p><%= f.label :Apellido %><br /> <%= f.text_field :last_name %></p>
-    <p><%= f.label :Dirección %><br /> <%= f.text_field :address %></p>
-    <p><%= f.label :Telefono %><br /> <%= f.text_field :phone_number %></p>
+    <h2>Editar usuario</h2>
+    <p><%= f.label :Nombre %><br /> <%= f.text_field :name, class: 'form-field' %></p>
+    <p><%= f.label :Apellido %><br /> <%= f.text_field :last_name, class: 'form-field' %></p>
+    <p><%= f.label :Dirección %><br /> <%= f.text_field :address, class: 'form-field' %></p>
+    <p><%= f.label :Telefono %><br /> <%= f.text_field :phone_number, class: 'form-field' %></p>
   </div>
 
-  <div class="field">
-    <%= f.check_box :change_password_checkbox %>
-    <%= f.label :change_password_checkbox, 'Cambiar contraseña' %>
+  <div class="actions flex-container">
+    <%= f.submit "Guardar", class: 'btn btn-primary' %>
+    <%= link_to "Cancelar", root_path, class: 'btn btn-secondary' %>
   </div>
-
-  <div id="password_fields" style="display: none;">
-    <div class="field">
-      <%= f.label :current_password %><br />
-      <%= f.password_field :current_password, autocomplete: "current-password" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password %><br>
-      <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
-      <% end %><br>
-      <%= f.password_field :password, autocomplete: "new-password" %>
-      <%= render_error_messages_for(resource, :password) %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password_confirmation %><br>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      <%= render_error_messages_for(resource, :password_confirmation) %>
-    </div>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Guardar" %>
-  </div>
-  <%= link_to "Cancelar", root_path %>
 <% end %>
 
 <%= render "devise/shared/links" %>
-
-<!-- Tu script JavaScript -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var changePasswordCheckbox = document.getElementById("user_change_password_checkbox");
-    var passwordFields = document.getElementById("password_fields");
-
-    changePasswordCheckbox.addEventListener("change", function () {
-      passwordFields.style.display = changePasswordCheckbox.checked ? "block" : "none";
-    });
-  });
-</script>
