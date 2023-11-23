@@ -33,7 +33,9 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.find(params[:user][:id])
     
     # Si el checkbox no está marcado, elimina los campos relacionados con la contraseña
-    unless params[:change_password_checkbox]
+    if params[:user][:change_password_checkbox] == "1"
+      update_password
+    else
       params[:user].delete(:current_password)
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
@@ -48,6 +50,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   private
+
+  def update_password
+    # Agrega lógica para manejar la actualización de la contraseña aquí
+    # Puedes usar métodos de Devise para cambiar la contraseña sin cerrar la sesión
+    if @user.update_with_password(password_params)
+      bypass_sign_in(@user) # Evita cerrar la sesión después de cambiar la contraseña
+    end
+  end
 
   def user_params
     params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
