@@ -24,6 +24,21 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
+<% else %>
+  <div class="field">
+    <%= f.label :password %><br>
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
+    <% end %><br>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= render_error_messages_for(resource, :password) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= render_error_messages_for(resource, :password_confirmation) %>
+  </div>
 <% end %>
 
   <div class="actions">
