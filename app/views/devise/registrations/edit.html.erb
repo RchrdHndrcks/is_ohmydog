@@ -12,6 +12,13 @@
     <p><%= f.label :Telefono %><br /> <%= f.text_field :phone_number, class: 'form-field' %></p>
   </div>
 
+  <% if current_user && current_user.es_admin && current_user.id != @user.id %>
+    <div class="field">
+      <p><%= f.label :DNI %><br /> <%= f.text_field :identifier_number, class: 'form-field' %></p>
+      <p><%= f.label :Email %><br /> <%= f.text_field :email, class: 'form-field' %></p>
+    </div>
+  <% end %>
+
   <div class="actions flex-container">
     <%= f.submit "Guardar", class: 'btn btn-primary' %>
     <%= link_to "Cancelar", root_path, class: 'btn btn-secondary' %>
