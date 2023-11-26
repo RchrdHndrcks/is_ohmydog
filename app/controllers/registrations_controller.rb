@@ -26,26 +26,57 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @page_title = "Editar usuario"
     @user = User.find(params[:id])
   end
 
   def update
     @user = User.find(params[:user][:id])
-    puts "User ID being received: #{params[:id]}"
+    
+    if params[:user][:change_password_checkbox] == "1"
+      if params[:user][:current_password].blank?
+        flash[:alert] = "Debes proporcionar la contraseña actual para cambiar la contraseña."
+        render :edit and return
+      end
+      update_password
+    else
+      params[:user].delete(:current_password)
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+  
     if @user.update(user_params)
-      redirect_to root_path #, notice: 'User was successfully updated.'
+      redirect_to users_show_path(user_id: @user.id)
       set_flash_message! :notice, :updated
     else
       render :edit
     end
   end
+
+  def after_sign_up_path_for(resource)
+    users_show_path(user_id: resource.id)
+  end
   
   private
 
-  def user_params
-    params.require(:user).permit(:name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+  def update_password
+    # Agrega lógica para manejar la actualización de la contraseña aquí
+    # Puedes usar métodos de Devise para cambiar la contraseña sin cerrar la sesión
+    if @user.update_with_password(password_params)
+      bypass_sign_in(@user) # Evita cerrar la sesión después de cambiar la contraseña
+    end
   end
 
+  def password_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
+  end
+
+  def user_params
+    params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+    params.require(:user).permit(:id, :name, :last_name, :identifier_number, :address, :phone_number, :email, :password, :password_confirmation, :es_admin)
+  end
+  
+  
   def check_admin
     Rails.logger.debug("entro----check-admin--------------------------------------------------------------------------------")
     unless current_user && current_user.es_admin?

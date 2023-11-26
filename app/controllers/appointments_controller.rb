@@ -109,11 +109,19 @@ class AppointmentsController < ApplicationController
 
   def update_date
     @appointment = Appointment.find(params[:id])
-    if params[:appointment][:appointment_date].present?  
+    if params[:appointment][:appointment_date].present?
+      if @appointment.appointment_date.present?
+        Rails.logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA----------------------------------------------------------")
+        @old_date = @appointment.appointment_date
+      end
       if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
         redirect_to appointments_path
         flash[:notice] = "Se ha cargado la fecha" 
-        AppointmentMailer.acepted_appointment_email(@appointment).deliver_later
+        if @old_date.present?
+          AppointmentMailer.modified_appointment_email(@appointment, @old_date).deliver_later
+        else
+          AppointmentMailer.acepted_appointment_email(@appointment).deliver_later
+        end
       else
         redirect_to appointments_path
         flash[:notice] = "error al cargar la fecha"

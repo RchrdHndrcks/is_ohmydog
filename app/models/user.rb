@@ -15,6 +15,8 @@ class User < ApplicationRecord
     has_many :dogs
     has_many :adoption_posts
     
+  attr_accessor :change_password_checkbox
+
     private 
 
 
