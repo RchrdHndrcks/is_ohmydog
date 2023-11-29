@@ -2,6 +2,11 @@
 Rails.application.routes.draw do
   #get 'adoption_posts/index', to: 'adoption_posts#index'
   resources :adoption_posts
+  resources :adoption_posts do
+    member do
+      patch 'adopted'
+    end
+  end
   root 'home#index'
 
   #------------------Rutas para la creación de usuarios utilizando RegistrationsController ----------------------#
