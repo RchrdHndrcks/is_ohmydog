@@ -6,12 +6,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "posts", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "posts", "news", "data-turbo-track": "reload" %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <%= javascript_importmap_tags %>
 
     <p class="home_bar">
-    Novedades&emsp; <a class="button" href="<%= adoption_posts_path %>">Adopciones</a>&emsp;
+    <a class="button" href="<%= news_index_path %>">Novedades</a>
+    <a class="button" href="<%= adoption_posts_path %>">Adopciones</a>
 
     <% if current_user %>
         <%= link_to "Paseadores/Cuidadores", paseadores_cuidadores_path, class: "button" %>

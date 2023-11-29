@@ -1,5 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  resources :news
   #get 'adoption_posts/index', to: 'adoption_posts#index'
   resources :adoption_posts
   resources :adoption_posts do

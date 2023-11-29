@@ -4,3 +4,4 @@
 //= link_tree ../builds
 //= link posts.css
 //= link adoption_posts.js
+//= link news.css
