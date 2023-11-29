@@ -56,6 +56,25 @@
     transform: scale(1.5); 
   }
 
+  .post-adopted-btn {
+    top: 40px;
+    right: 10px;
+    height: 30px;
+    background-color: transparent;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: absolute;
+    z-index: 2;
+    margin-top: 30px;
+  }
+
+  .post-adopted-btn:hover {
+    transform: scale(1.5); 
+  }
+
   .option-list {
     display: none;
     list-style: none;
@@ -231,4 +250,12 @@ p, h2 {
 .flex-container {
   display: flex;
   justify-content: space-between; /* Otra opción: space-around o space-evenly */
+}
+
+/* Agrega estos estilos al final de tu archivo CSS */
+.adopted-post {
+  background-color: #6cbf73; /* Cambia el color de fondo para posts adoptados */
+  border-color: #4a934a; /* Cambia el color del borde para posts adoptados */
+  /*color: #fff; /* Cambia el color del texto para posts adoptados */
+  /* Otros estilos según sea necesario para indicar que el post está adoptado */
 }

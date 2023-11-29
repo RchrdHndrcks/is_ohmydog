@@ -49,6 +49,12 @@ class AdoptionPostsController < ApplicationController
     render plain: 'Invalid authenticity token', status: :unprocessable_entity
   end
 
+  def adopted
+    @adoption_post = AdoptionPost.find(params[:id])
+    @adoption_post.update(is_adopted: true)
+    redirect_to adoption_posts_path
+  end
+
 
   private
 
