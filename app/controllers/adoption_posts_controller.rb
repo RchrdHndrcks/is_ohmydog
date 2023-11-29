@@ -14,6 +14,7 @@ class AdoptionPostsController < ApplicationController
 
   def create
     @adoption_post = current_user.adoption_posts.build(adoption_post_params)
+    @adoption_post.is_adopted = false
 
     if @adoption_post.save
       redirect_to adoption_posts_path
