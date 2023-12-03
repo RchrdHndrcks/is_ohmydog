@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   pool: 5
   host: localhost
-  username: omd
+  username: matiluga
   password: omd
 
 development:
