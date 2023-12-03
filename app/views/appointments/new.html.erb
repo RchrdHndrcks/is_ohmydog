@@ -34,6 +34,11 @@
       </div>
     </div>
 
+    <div class="form-field">
+      <%= f.label :reason %>
+      <%= f.select :reason, Appointment.reasons.keys, { }, class: 'input-field' %>
+    </div>
+
     <div class="form-actions">
       <%= f.submit 'Solicitar Cita', class: 'button' %>
     </div>

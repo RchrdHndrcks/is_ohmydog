@@ -90,6 +90,7 @@
             <tr>
               <th>Franja Horaria</th>
               <th>Perros</th>
+              <th>Razon</th>
               <% if current_user.es_admin? %>
           <th>Correo</th>
           <th>Elegir Fecha</th>
@@ -108,6 +109,7 @@
               <% end %>
             </ul>
           </td>
+          <td><%= appointment.reason %></td>
           <% if current_user.es_admin? %>
             <td><%= User.find(appointment.user_id).email %></td>
             <td>
@@ -134,6 +136,7 @@
       <tr>
         <th>Fecha</th>
         <th>Perros</th>
+        <th>Razon</th>
         <% if current_user.es_admin? %>
           <th>Correo</th>
           <th>Editar</th>
@@ -152,6 +155,7 @@
               <% end %>
             </ul>
           </td>
+          <td><%= appointment.reason %></td>
           <% if current_user.es_admin? %>
             <td><%= User.find(appointment.user_id).email %></td>
             
@@ -182,6 +186,7 @@
       <tr>
         <th>Perros</th> 
         <th>Franja</th>
+        <th>Razon</th>
         <% if current_user.es_admin? %>
         <th>Correo</th>
       <% end %>
@@ -198,6 +203,7 @@
             </ul>
           </td>
           <td><%= appointment.timeSlot %></td>
+          <td><%= appointment.reason %></td>
           <% if current_user.es_admin? %>
             <td><%= User.find(appointment.user_id).email %></td>
           <% end %>

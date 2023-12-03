@@ -41,3 +41,5 @@
 
 config/database.yml
 /db/migrate/*.rb
+/config/database.yml
+database.yml

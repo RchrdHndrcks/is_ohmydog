@@ -30,6 +30,7 @@ es:
         user_id: "Usuario"
         adoption_post_id: "Publicación de Adopción"
         dog_id: "Perro"
+        reason: "Razon"
     errors:
       models:
         dog:

@@ -136,7 +136,7 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:timeSlot, dog_ids: [])
+    params.require(:appointment).permit(:timeSlot, :reason, dog_ids: [])
   end
 
   def confirmation
