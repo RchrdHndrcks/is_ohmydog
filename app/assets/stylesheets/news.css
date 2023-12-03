@@ -58,3 +58,7 @@
   .edit-btn:hover {
     transform: scale(1.5); 
   }
+
+  .front-all{
+    z-index: 3;
+  }

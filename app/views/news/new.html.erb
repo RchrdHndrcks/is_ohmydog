@@ -1,0 +1,27 @@
+<%= form_with(model: @new, url: news_index_path, local: true,  class: "adoption-form") do |form| %>
+    <% if @new.errors.any? %>
+      <div id="error_explanation">
+        <h2> Los campos titulo y descripción son necesarios </h2>
+      </div>
+    <% end %>
+
+    <div class="field">
+    <label class="adoption-posts-font">Titulo</label>
+      <%= form.text_field :title %>
+    </div>
+  
+    <div class="field">
+    <label class="adoption-posts-font">Descripción</label>
+      <%= form.text_area :description %>
+    </div>
+  
+    <div class="field">
+    <label class="adoption-posts-font">Imagen</label>
+      <%= form.file_field :image %>
+    </div>
+  
+    <div class="actions">
+      <%= form.submit 'Crear Novedad', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  
