@@ -99,6 +99,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.index ["user_id"], name: "index_dogs_on_user_id"
   end
 
+  create_table "news", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_news_on_user_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "identifier_number"
@@ -117,10 +127,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'news' for column 'news'
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "appointments", "users"
   add_foreign_key "appointments_dogs", "appointments"
   add_foreign_key "appointments_dogs", "dogs"
   add_foreign_key "dogs", "users"
+  add_foreign_key "news", "users"
 end

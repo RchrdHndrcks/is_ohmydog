@@ -14,6 +14,7 @@ class AdoptionPostsController < ApplicationController
 
   def create
     @adoption_post = current_user.adoption_posts.build(adoption_post_params)
+    @adoption_post.is_adopted = false
 
     if @adoption_post.save
       redirect_to adoption_posts_path
@@ -46,6 +47,12 @@ class AdoptionPostsController < ApplicationController
     #redirect_to adoption_posts_path
   rescue ActionController::InvalidAuthenticityToken
     render plain: 'Invalid authenticity token', status: :unprocessable_entity
+  end
+
+  def adopted
+    @adoption_post = AdoptionPost.find(params[:id])
+    @adoption_post.update(is_adopted: true)
+    redirect_to adoption_posts_path
   end
 
 

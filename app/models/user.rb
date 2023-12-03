@@ -14,6 +14,7 @@ class User < ApplicationRecord
     validates :es_admin, presence: false
     has_many :dogs
     has_many :adoption_posts
+    has_many :news
     
   attr_accessor :change_password_checkbox
 
