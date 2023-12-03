@@ -76,6 +76,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.index ["dog_id"], name: "index_appointments_dogs_on_dog_id"
   end
 
+  create_table "contact_posts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.integer "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "role", default: "Paseador", null: false
+    t.string "zone"
+    t.string "availability"
+  end
+
   create_table "dogs", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false

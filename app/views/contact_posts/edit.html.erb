@@ -1,16 +1,6 @@
-<h2>Agregar contacto</h2>
-  <!--<% if @contact_post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contact_post.errors.count, "error") %> prohibieron que este contacto sea guardado:</h2>
+<!-- app/views/contact_posts/edit.html.erb -->
+<h2>Editar Contacto</h2>
 
-      <ul>
-        <% @contact_post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  -->
 <%= form_with(model: @contact_post, local: true) do |form| %>
   <div class="form-group">
     <%= form.label :name, "Nombre" %>
@@ -18,17 +8,13 @@
   </div>
 
   <div class="form-group">
-      <%= form.label :photo, "Foto" %>
-      <%= form.file_field :photo, class: "form-control narrow-input" %>
+    <%= form.label :photo, "Foto" %>
+    <%= form.file_field :photo, class: "form-control narrow-input" %>
   </div>
 
   <div class="form-group">
     <%= form.label :email, "Email" %>
     <%= form.text_field :email, class: "form-control narrow-input" %>
-    <!--<% if @contact_post.errors[:email].any? %>
-      <p class="text-danger"><%= @contact_post.errors[:email].first %></p>
-    <% end %>
-    -->
   </div>
 
   <div class="form-group">
@@ -37,25 +23,28 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :zone, "Zona de trabajo" %>
+    <%= form.label :zone, "Zona de Trabajo" %>
     <%= form.text_field :zone, class: "form-control narrow-input" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :availability, "Días y horarios libres" %>
-    <%= form.text_area :availability, class: "form-control narrow-input" %>
+    <%= form.label :availability, "Días y Horarios Libres" %>
+    <%= form.text_area :availability, class: "form-control", style: "width: 300px;", rows: 2 %>
   </div>
 
   <div class="form-group">
   <%= form.label :role, "Trabajo" %>
   <div class="input-group">
-    <%= form.select :role, ['Paseador', 'Cuidador'], { prompt: 'Seleccionar' }, class: "form-control narrow-input custom-select-width" %>
+    <%= form.select :role, ['Paseador', 'Cuidador'], { prompt: 'Seleccionar' }, class: "form-control ", style: "width: 200px;" %>
     <div class="input-group-append">
       <span class="input-group-text" style="max-width: 30px;"><i class="fas fa-chevron-down"></i></span>
     </div>
   </div>
-</div>
-  <%= form.submit 'Publicar', class: "btn btn-primary" %>
+
+  <!-- Agrega otros campos según tus necesidades -->
+
+  <%= form.submit 'Actualizar', class: "btn btn-primary" %>
+  <%= link_to 'Cancelar', paseadores_cuidadores_path, class: "btn btn-secondary" %>
 <% end %>
 
 <style>

@@ -1,6 +1,6 @@
 class ContactPostsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :check_admin, only: [:new, :create]
+    before_action :authenticate_user!, except: [:index, :show] 
+    before_action :check_admin, only: [:new, :create, :destroy]
 
     def index
         @contact_posts = ContactPost.all
@@ -25,6 +25,28 @@ class ContactPostsController < ApplicationController
         end
     end
 
+    def edit
+        @contact_post = ContactPost.find(params[:id])
+    end
+
+    def destroy
+        @contact_post = ContactPost.find(params[:id])
+        @contact_post.destroy
+        redirect_to paseadores_cuidadores_path, notice: 'Contacto eliminado exitosamente.'
+    end
+  
+
+    def update
+        @contact_post = ContactPost.find(params[:id])
+    
+        if @contact_post.update(contact_post_params)
+          redirect_to paseadores_cuidadores_path, notice: 'Contacto actualizado exitosamente.'
+        else
+          flash.now[:alert] = 'Error al actualizar el contacto.'
+          render :edit
+        end
+      end
+
     def paseadores_cuidadores
         @contact_posts = current_user.es_admin? ? ContactPost.all : ContactPost.where(user_id: current_user.id)
       end
@@ -32,7 +54,7 @@ class ContactPostsController < ApplicationController
     private
 
     def contact_post_params
-        params.require(:contact_post).permit(:name, :email, :phone_number, :role)
+        params.require(:contact_post).permit(:name, :email, :phone_number, :role, :photo, :zone, :availability)
     end
 
     def check_admin
