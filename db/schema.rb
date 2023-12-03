@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.boolean "is_adopted"
     t.index ["user_id"], name: "index_adoption_posts_on_user_id"
   end
 
