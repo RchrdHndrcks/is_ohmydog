@@ -11,6 +11,13 @@
   <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.css' %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js' %>
 
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
+  <%= javascript_include_tag 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js' %>
+  <%= stylesheet_link_tag 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' %>
+
 </head>
 
 <style>
@@ -81,6 +88,22 @@
       color: #007bff
     }
   
+    .custom-dialog {
+      max-width: 50%;
+      margin: 10px auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      padding: 8px;
+    }
+  
+    /* Estilos para el campo de texto en el cuadro de diálogo */
+    .custom-input {
+      width: calc(100% - 16px);
+      padding: 5px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
 
       </style>
 
@@ -119,10 +142,11 @@
             <td>
             <%= f.submit "Confirmar", class: "button", id: "confirmButton", onclick: "return confirm('Confirmar fecha?')" %>
             <% end %>
-              <%= form_with(model: appointment, url: update_state_appointment_path(appointment), method: :patch, remote: true) do |f| %>
-                <%= f.hidden_field :state, value: "rechazado" %>
-                <%= f.submit "Rechazar", class: "button", id: "rejectButton", onclick: "return confirm('Seguro que deseas rechazar el turno?')" %>
-              <% end %>
+            <%= form_with(model: appointment, url: update_state_appointment_path(appointment), method: :patch, remote: true) do |f| %>
+              <%= f.hidden_field :state, id: "state_value"%>
+              <%= f.hidden_field :rejection_reason, id: "rejectionReason" %>
+              <%= f.submit "Rechazar", class: "button", id: "rejectButton" %>
+            <% end %>
             </td>
           <% end %>
         </tr>
@@ -188,8 +212,9 @@
         <th>Franja</th>
         <th>Razon</th>
         <% if current_user.es_admin? %>
-        <th>Correo</th>
-      <% end %>
+          <th>Correo</th>
+        <% end %>
+        <th>Motivo de rechazo</th>
       </tr>
     </thead>
     <tbody>
@@ -207,6 +232,7 @@
           <% if current_user.es_admin? %>
             <td><%= User.find(appointment.user_id).email %></td>
           <% end %>
+          <td><%= appointment.rejection_reason %></td>
         </tr>
       <% end %>
     </tbody>
@@ -263,4 +289,42 @@
     // maxTime: "18:00",
   });
 
+</script>
+
+
+<script>
+  $(document).ready(function() {
+    $("#rejectButton").on("click", function(e) {
+      e.preventDefault();
+
+      // Crea un cuadro de diálogo con un campo de texto
+      $("<div>").dialog({
+        title: "Motivo de rechazo",
+        close: function() {
+          $(this).dialog("destroy").remove();
+        },
+        buttons: {
+          "Aceptar": function() {
+            // Asigna el valor del campo de texto al campo oculto antes de enviar el formulario
+            $("#rejectionReason").val($("#rejectionInput").val());
+            $("#state_value").val("rechazado");
+            // Muestra el valor en la consola para asegurarse de que se haya asignado correctamente
+            console.log($("#rejectionReason").val());
+            console.log($("#state_value").val()); 
+            // Envía el formulario
+            $("form").submit();
+            $(this).dialog("close");
+          },
+          "Cancelar": function() {
+            $(this).dialog("close");
+          }
+        },
+        open: function() {
+          // Agrega clases de estilo al cuadro de diálogo y al campo de texto
+          $(this).dialog("widget").addClass("custom-dialog");
+          $(this).html('<input type="text" id="rejectionInput" class="custom-input" placeholder="Motivo de rechazo">');
+        }
+      });
+    });
+  });
 </script>
