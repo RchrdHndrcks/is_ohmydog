@@ -4,5 +4,6 @@ class Appointment < ApplicationRecord
     enum timeSlot: { mañana: 0, tarde: 1 }
     attribute :appointment_date, :datetime
     enum reason: { urgencia: 0, consulta_general: 1, castración: 2, vacunación: 3 }
+    String :rejection_reason
     has_and_belongs_to_many :dogs
 end
