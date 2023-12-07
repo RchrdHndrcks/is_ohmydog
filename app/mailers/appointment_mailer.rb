@@ -33,6 +33,7 @@ class AppointmentMailer < ApplicationMailer
           Dog.find(appointment_dog.dog_id).name
         end
         @date = appointment.appointment_date
+        @rejection_reason = appointment.rejection_reason
         mail(to: @user.email, subject: 'Turno cancelado')
     end
 
