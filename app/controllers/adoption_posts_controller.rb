@@ -55,6 +55,10 @@ class AdoptionPostsController < ApplicationController
     redirect_to adoption_posts_path
   end
 
+  def contact
+    # Lógica adicional si es necesario
+    redirect_to new_contact_form_path(adoption_post_id: params[:adoption_post_id])
+  end
 
   private
 
