@@ -3,6 +3,7 @@ default: &default
   encoding: unicode
   pool: 5
   host: localhost
+  port: 5433 # default port for postgresql is 5432
   username: omd
   password: omd
 
