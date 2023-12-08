@@ -1,0 +1,66 @@
+/* contact_form_styles.css */
+
+/* Estilos para el formulario de contacto */
+/* Reset de estilos del navegador para los campos de formulario */
+.custom-contact-form input,
+.custom-contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.custom-contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #e57373; /* Cambia el color de fondo según tu paleta */
+  padding: 20px;
+  border: 5px solid #ffcc80; /* Cambia el color del borde según tu paleta */
+  border-radius: 15px;
+  color: #fff; /* Cambia el color del texto según tu paleta */
+  margin-bottom: 50px;
+}
+
+/* Otros estilos específicos para el formulario de contacto */
+.custom-contact-form .form-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box; /* Incluye el relleno y el borde en el ancho total */
+}
+
+.custom-contact-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffcc80; /* Cambia el color de las etiquetas según tu paleta */
+}
+
+.custom-contact-form .actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.custom-contact-form .btn {
+  color: #fff;
+  background-color: #ffb74d; /* Cambia el color del botón principal según tu paleta */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.custom-contact-form .btn-primary {
+  background-color: #ff7043; /* Cambia el color del botón primario según tu paleta */
+}
+
+.custom-contact-form .btn-secondary {
+  background-color: #78909c; /* Cambia el color del botón secundario según tu paleta */
+}
+
+.custom-contact-form .btn-primary:hover,
+.custom-contact-form .btn-secondary:hover {
+  background-color: #ff8a65; /* Cambia el color al pasar el ratón sobre los botones según tu paleta */
+}

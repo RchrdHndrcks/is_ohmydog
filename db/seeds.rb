@@ -31,6 +31,19 @@ User.create(
   es_admin: true
   
 )
+
+User.create(
+  email: "francodamianniz@alu.ing.unlp.edu.ar",
+  password: "123456",
+  name: "Franco",
+  last_name: "Niz",
+  phone_number: "2223432339",
+  address: "70",
+  identifier_number: 43574475,
+  es_admin: true
+  
+)
+
 puts "Se ha creado un usuario con los datos especificados en el archivo seeds.rb."
 User.create(
   email: "pecotcheandres@gmail.com",

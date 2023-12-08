@@ -113,6 +113,9 @@
                       <button onclick="confirmAdopted(<%= post.id %>)" class="post-adopted-btn">Perro adoptado</button>
                     <% end %>
                 <% end %>
+                <% if (!user_signed_in? || (current_user != post.user && !current_user.es_admin)) && !post.is_adopted? %>
+                  <%= link_to "Contactar", contact_adoption_post_path(post, adoption_post_id: post.id), class: "contact-btn" %>
+                <% end %>
             </div>
             <div>
                 <p class="adoption-posts-font"> 
