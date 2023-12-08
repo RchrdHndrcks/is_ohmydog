@@ -1,12 +1,4 @@
-<!-- app/views/post_adoption_mailer/contact_email.html.erb -->
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-</head>
-<body>
-  <h1>Nuevo mensaje de contacto</h1>
+  <h2>Proceso de adopción comenzado!</h2>
   <p>Hola <%= @post_creator_email %>,</p>
   <p>Has recibido un nuevo mensaje de contacto:</p>
   <ul>
@@ -15,6 +7,4 @@
     <li><b>Teléfono:</b> <%= @contact_form.telefono %></li>
     <li><b>Mensaje:</b> <%= @contact_form.mensaje %></li>
   </ul>
-  <p>¡Gracias!</p>
-</body>
-</html>
+

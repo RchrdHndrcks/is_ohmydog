@@ -1,5 +1,5 @@
 class ContactFormsController < ApplicationController
-  before_action :set_post, only: [:new, :create]
+  before_action :set_post, only: [:new]
 
   def new
     @page_title = "Contactarse por adopción"
@@ -12,18 +12,25 @@ class ContactFormsController < ApplicationController
       # Puedes agregar más campos según sea necesario
     end
 
-    @post_creator_email = @post.user.email if @post
+    @post_creator_email = User.find(@post.user_id).email
+    @adoption_post_id = @post.id
+    #@adoption_post = @post
   end
 
   def create
     @page_title = "Contactarse por adopción"
     @contact_form = ContactForm.new(contact_form_params)
-    @contact_form.mensaje = "¡Alguien se interesó en tu anuncio de adopción! La persona interesada es " + @contact_form.nombre + ", su telefono es " + @contact_form.telefono + " y su mail es " + @contact_form.correo + ". ¡Contactalo pronto para seguir con el proceso de adopción!" 
+    @adoption_post = AdoptionPost.find(@contact_form.adoption_post_id)
+    @contact_form.mensaje = "¡Me interesa tu anuncio de adopción para " + @adoption_post.dog_name + "! Mi nombre es " + @contact_form.nombre + ", mi telefono es " + @contact_form.telefono + " y mi mail es " + @contact_form.correo + ". ¡Contactame pronto para seguir con el proceso de adopción!" 
+
+    admin_emails = User.where(es_admin: true).pluck(:email)
+    Rails.logger.debug("admin emails")
+    Rails.logger.debug(admin_emails)
 
     if @contact_form.save
       # Envía el correo al creador del post de adopción
-      post_creator_email = @post.user.email if @post
-      PostAdoptionMailer.contact_email(@contact_form, post_creator_email).deliver_now
+      post_creator_email = @contact_form.post_creator_email
+      PostAdoptionMailer.contact_email(@contact_form, post_creator_email, admin_emails).deliver_later
       redirect_to root_path, notice: "¡Correo electrónico enviado con éxito!"
     else
       render 'new'
@@ -33,7 +40,7 @@ class ContactFormsController < ApplicationController
   private 
 
   def set_post
-    @post = AdoptionPost.find(params[:adoption_post_id]) if params[:adoption_post_id]
+    @post = AdoptionPost.find(params[:adoption_post_id]) 
   end
 
   def contact_form_params
