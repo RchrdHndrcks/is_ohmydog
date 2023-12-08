@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024348) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.integer "reason"
+    t.string "rejection_reason"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
