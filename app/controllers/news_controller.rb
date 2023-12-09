@@ -21,6 +21,13 @@ class NewsController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.es_admin #solo el usuario admin puede eliminar novedades
+      @new = New.find(params[:id])
+      @new.destroy
+    end
+  end
+
   private
 
   def news_params
