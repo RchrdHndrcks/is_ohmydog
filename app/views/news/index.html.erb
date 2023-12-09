@@ -12,7 +12,7 @@
       <% if user_signed_in? && current_user.es_admin %>
         <div class="admin-buttons">
           <button class="edit-btn" onclick="">Editar</button>
-          <button class="delete-btn" onclick="">Eliminar</button>
+          <button onclick="confirmDelete(<%= new.id %>)" class="post-delete-btn">Eliminar</button>
         </div>
       <% end %>
     </div>
@@ -24,3 +24,43 @@
     </div>
   <% end %>
   
+<script>
+
+// Función para mostrar el mensaje de confirmación y eliminar la novedad
+  function confirmDelete(newId) {
+    const confirmMessage = "¿Estás seguro de que quieres eliminar esta publicación?";
+    const isConfirmed = confirm(confirmMessage);
+
+    if (isConfirmed) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+        fetch(`/news/${newId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response;
+        })
+        .then(data => {
+            // Almacenar un indicador en el Local Storage antes de recargar la página
+            localStorage.setItem('deleteConfirmation', 'true');
+      
+            // Realizar la recarga de la página después de eliminar el post
+            console.log('Post eliminado exitosamente. Recargando la página.');
+            window.location.reload();
+        })
+        .catch(error => {
+          console.error('Error al eliminar el post:', error);
+        });
+    }
+  }
+
+  
+
+</script>
