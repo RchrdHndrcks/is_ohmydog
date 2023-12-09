@@ -11,7 +11,7 @@
       <% end %>
       <% if user_signed_in? && current_user.es_admin %>
         <div class="admin-buttons">
-          <button class="edit-btn" onclick="">Editar</button>
+          <button onclick="editPost(<%= new.id %>)" class="post-edit-btn">Editar</button>
           <button onclick="confirmDelete(<%= new.id %>)" class="post-delete-btn">Eliminar</button>
         </div>
       <% end %>
@@ -61,6 +61,10 @@
     }
   }
 
-  
+  function editPost(newId) {
+    window.location.href = `/news/${newId}/edit`;
+  }
+
+
 
 </script>
