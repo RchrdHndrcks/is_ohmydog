@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024348) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: 
+    t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
@@ -54,6 +54,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024348) do
     t.bigint "user_id", null: false
     t.boolean "is_adopted"
     t.index ["user_id"], name: "index_adoption_posts_on_user_id"
+  end
+
+  create_table "contact_posts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.integer "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "role", default: "Paseador", null: false
+    t.string "zone"
+    t.string "availability"
   end
 
   create_table "appointments", id: :serial, force: :cascade do |t|
