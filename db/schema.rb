@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_25_024348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.integer "reason"
+    t.string "rejection_reason"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
@@ -76,10 +78,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.index ["dog_id"], name: "index_appointments_dogs_on_dog_id"
   end
 
+  create_table "contact_forms", force: :cascade do |t|
+    t.string "nombre"
+    t.string "correo"
+    t.string "telefono"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "mensaje"
+  end
+
+  create_table "dog_walkers_sitters_contacts", force: :cascade do |t|
+    t.string "nombre"
+    t.string "email"
+    t.string "telefono"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "mensaje"
+  end
+
   create_table "contact_posts", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "phone_number"
+    t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role", default: "Paseador", null: false
@@ -127,9 +147,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024346) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'news' for column 'news'
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"

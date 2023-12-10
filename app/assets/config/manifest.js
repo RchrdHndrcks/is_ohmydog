@@ -5,3 +5,4 @@
 //= link posts.css
 //= link adoption_posts.js
 //= link news.css
+//= link contact_form.css

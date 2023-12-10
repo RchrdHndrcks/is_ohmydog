@@ -57,6 +57,11 @@ class ContactPostsController < ApplicationController
         params.require(:contact_post).permit(:name, :email, :phone_number, :role, :photo, :zone, :availability)
     end
 
+    def contact
+        # Lógica adicional si es necesario
+        redirect_to new_dog_walkers_sitters_contact_path(contact_post_id: params[:contact_post_id])
+      end
+
     def check_admin
         redirect_to root_path, alert: 'No tienes permiso para realizar esta acción.' unless current_user&.es_admin?
     end

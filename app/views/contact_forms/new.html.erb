@@ -1,0 +1,33 @@
+<!-- app/views/contact_forms/new.html.erb -->
+
+<div class="custom-contact-form">
+  <h2>Contactar al dueño</h2>
+
+  <%= form_with(model: @contact_form, url: contact_forms_path, method: :post) do |form| %>
+    <!-- Agrega campos del formulario según tus necesidades -->
+    <div class="form-field">
+    <%= form.hidden_field :post_creator_email, value: @post_creator_email %>
+    <%= form.hidden_field :adoption_post_id, value: @post.id %>
+     </div>
+    <div class="form-field">
+      <%= form.label :nombre %>
+      <%= form.text_field :nombre, required: true %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :correo %>
+      <%= form.email_field :correo, required: true %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :telefono %>
+      <%= form.text_field :telefono, required: true %>
+    </div>
+
+    <!-- El mensaje se establece en el controlador, ya que siempre será el mismo -->
+
+    <div class="actions">
+      <%= form.submit "Enviar mensaje", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

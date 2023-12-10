@@ -1,0 +1,36 @@
+<!-- app/views/dog_walkers_sitters_contact/new.html.erb -->
+
+<div class="custom-dog-walkers_sitters_contact">
+  <h2>Contactar al Paseador/Cuidador</h2>
+
+<%= form_with(model: @dog_walkers_sitters_contact, url: dog_walkers_sitters_contact_index_path, method: :post) do |form| %>
+  <!-- Agrega campos del formulario según tus necesidades -->
+
+  <div class="form-field">
+    <%= form.hidden_field :post_creator_email, value: @post_creator_email %>
+    <%= form.hidden_field :contact_post_id, value: @post.id %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre, required: true %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+  </div>
+
+  <div class="form-field">
+    <%= form.label :telefono %>
+    <%= form.text_field :telefono, required: true %>
+  </div>
+
+  <!-- El mensaje se establece en el controlador, ya que siempre será el mismo -->
+
+  <div class="actions">
+    <%= form.submit "Enviar mensaje", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+
+</div>

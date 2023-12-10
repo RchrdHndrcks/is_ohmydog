@@ -181,7 +181,7 @@
 }
 
 .btn-primary {
-    background-color: #f8934f;
+    background-color: #ff6803;
 }
 
 .btn-secondary {
@@ -258,4 +258,21 @@ p, h2 {
   border-color: #4a934a; /* Cambia el color del borde para posts adoptados */
   /*color: #fff; /* Cambia el color del texto para posts adoptados */
   /* Otros estilos según sea necesario para indicar que el post está adoptado */
+}
+
+.contact-btn {
+  text-decoration: none;
+  background-color: #6fb0fb; /* Cambia el color de fondo según tus preferencias */
+  color: #fff; /* Cambia el color del texto según tus preferencias */
+  padding: 10px 15px; /* Ajusta el relleno según tus preferencias */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  bottom: 10px;
+  right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: #4169e1; /* Cambia el color de fondo al pasar el ratón sobre el botón */
 }

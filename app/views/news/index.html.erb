@@ -1,3 +1,7 @@
+<% if user_signed_in? && current_user.es_admin? %>
+  <%= link_to "Crear novedad", new_news_path, class: "btn btn-primary btn-floating position-fixed bottom-0 end-0 m-3 front-all" %>
+<% end %>
+
 <% @news.each_with_index do |new, index| %>
     <div class="news-item <%= index.even? ? 'even' : 'odd' %>">
       <h2><%= new.title %></h2>

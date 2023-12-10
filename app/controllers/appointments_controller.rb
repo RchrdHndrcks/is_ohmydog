@@ -5,13 +5,11 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user! 
 
   def new
-    Rails.logger.debug("entro------a new-------------------------------------------------------------------------------")
     @appointment = Appointment.new
     @user_dogs = current_user.dogs
   end
 
   def create
-    Rails.logger.debug("entro------a create-------------------------------------------------------------------------------")
     @appointment = Appointment.new(appointment_params)
     @appointment.user_id = current_user.id
     if !@appointment.dog_ids.empty?
@@ -26,7 +24,6 @@ class AppointmentsController < ApplicationController
       end
       if !@perro.any?
         if @appointment.save
-          Rails.logger.debug("entro------a save--create-----------------------------------------------------------------------------")
           redirect_to new_appointment_path
           flash[:notice] = "Se ha creado el turno"
           AppointmentMailer.confirmed_appointment_email(@appointment).deliver_later
@@ -35,7 +32,6 @@ class AppointmentsController < ApplicationController
           redirect_to root_path
           error = @appointment.errors.full_messages
           flash[:notice] = error
-          Rails.logger.debug("entro------a error--create-----------------------------------------------------------------------------")
         end
       else
         redirect_to new_appointment_path
@@ -44,7 +40,6 @@ class AppointmentsController < ApplicationController
         end
       end
     else
-      Rails.logger.debug("entro------a else--es de perros empty-----------------------------------------------------------------------------")
       #redirect_to new_appointment_path
       redirect_to new_appointment_path
       flash[:notice] = "Debe seleccionar al menos un perro"
@@ -52,12 +47,10 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
-    Rails.logger.debug("entro------a edit-------------------------------------------------------------------------------")
     @appointment = Appointment.find(params[:id])
   end
 
   def show
-    Rails.logger.debug("entro------a show-------------------------------------------------------------------------------")
     @appointment = Appointment.find(params[:id])
     
   end
@@ -65,11 +58,9 @@ class AppointmentsController < ApplicationController
   def update
     @appointment = Appointment.find(params[:id])
     if @appointment.update(appointment_params)
-      Rails.logger.debug("entro------a update-------------------------------------------------------------------------------")
       flash[:notice] = "Se ha cargado la fecha"
       render 'index'
     else
-      Rails.logger.debug("entro------a update error-------------------------------------------------------------------------------")
       render 'edit'
     end
   end
@@ -92,7 +83,7 @@ class AppointmentsController < ApplicationController
 
   def update_state
     @appointment = Appointment.find(params[:id])
-    if @appointment.update(state: params[:appointment][:state])
+    if @appointment.update(state: params[:appointment][:state], rejection_reason: params[:appointment][:rejection_reason])
       flash[:notice] = "Se ha cargado el estado"
       redirect_to appointments_path
       if params[:appointment][:state] == 'rechazado'
@@ -111,7 +102,6 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     if params[:appointment][:appointment_date].present?
       if @appointment.appointment_date.present?
-        Rails.logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA----------------------------------------------------------")
         @old_date = @appointment.appointment_date
       end
       if @appointment.update(appointment_date: params[:appointment][:appointment_date], state: 'aceptado')
@@ -136,11 +126,10 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:timeSlot, dog_ids: [])
+    params.require(:appointment).permit(:timeSlot, :rejection_reason, :reason, dog_ids: [])
   end
 
   def confirmation
-    Rails.logger.debug("entro------a confirmation------------------------------------------------------------------------------")
   end
 
 

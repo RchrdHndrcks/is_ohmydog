@@ -1,11 +1,15 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  get 'contact_forms/new'
+  get 'contact_forms/create'
   resources :news
+  resources :contact_forms, only: [:new, :create]
   #get 'adoption_posts/index', to: 'adoption_posts#index'
   resources :adoption_posts
   resources :adoption_posts do
     member do
       patch 'adopted'
+      get 'contact'
     end
   end
   root 'home#index'
@@ -41,6 +45,8 @@ Rails.application.routes.draw do
   #---------------------------------------------------------------------------------------------------------#
 
 
+  resources :dog_walkers_sitters_contact, only: [:new, :create]
+  
   resources :contact_posts
 
   get '/paseadores_cuidadores', to: 'contact_posts#index', as: 'paseadores_cuidadores'
