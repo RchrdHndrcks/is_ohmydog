@@ -3,6 +3,7 @@ class ContactPostsController < ApplicationController
     before_action :check_admin, only: [:new, :create, :destroy]
 
     def index
+        @page_title = "Paseadores y Cuidadores"
         @contact_posts = ContactPost.all
     end
 
@@ -11,6 +12,7 @@ class ContactPostsController < ApplicationController
     end
 
     def new
+        @page_title = "Crear contacto"
         @contact_post = ContactPost.new
     end
 
