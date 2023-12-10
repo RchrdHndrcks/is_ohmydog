@@ -1,26 +1,104 @@
-<h2>Log in</h2>
+<div class="form-container">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+  <h2>Login</h2>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="form-group">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Log in", class: 'button' %>
     </div>
   <% end %>
+  
+  <%= render "devise/shared/links" %>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+<style>
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #2596be; /* Color de fondo */
+  border: 5px solid #f8934f; /* Color del borde */
+  border-radius: 15px; /* Bordes redondeados */
+}
 
-<%= render "devise/shared/links" %>
+.form-group {
+  margin-bottom: 15px;
+}
+
+.error-field {
+  border-color: red !important;
+  border-width: 3px !important;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('new_user').addEventListener('submit', function(event) {
+      var isValid = true;
+
+      if (!document.getElementById('user_email').value) {
+        document.getElementById('user_email').classList.add('error-field');
+        isValid = false;
+      } else {
+        document.getElementById('user_email').classList.remove('error-field');
+      }
+
+      if (!document.getElementById('user_password').value) {
+        document.getElementById('user_password').classList.add('error-field');
+        isValid = false;
+      } else {
+        document.getElementById('user_password').classList.remove('error-field');
+      }
+
+      if (!isValid) {
+        // Remove existing error message
+        var existingErrorMessage = document.querySelector('.error-message');
+        if (existingErrorMessage) {
+          existingErrorMessage.remove();
+        }
+
+        event.preventDefault();
+
+        var errorMessage = document.createElement('p');
+        errorMessage.classList.add('error-message');
+        errorMessage.textContent = 'Por favor, completa los campos marcados en rojo';
+
+        document.getElementById('new_user').insertBefore(errorMessage, document.getElementById('new_user').firstChild);
+
+        document.querySelector('.error-field').focus();
+
+        window.scrollTo({
+          top: document.querySelector('.error-field').offsetTop - 100,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>
+
+

@@ -11,6 +11,7 @@
     <%= javascript_importmap_tags %>
 
     <p class="home_bar">
+    <a class="home_button" href="<%= root_path %>"></a>
     <a class="button" href="<%= news_index_path %>">Novedades</a>
     <a class="button" href="<%= adoption_posts_path %>">Adopciones</a>
     <a class="button" href="<%= paseadores_cuidadores_path %>">Paseadores/Cuidadores</a>
@@ -47,3 +48,24 @@
     <%= yield %>
 </body>
 </html>
+
+<style> 
+.home_button {
+  position: relative;
+  top: 0%;
+  left: -10%;
+  padding: 60px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin: 0px;
+  #width: 60px;
+  #width: 30%;
+  background-image: url('/assets/logo2.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  #padding-left: 20px;
+  
+}
+</style>
