@@ -21,6 +21,31 @@ class NewsController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.es_admin #solo el usuario admin puede eliminar novedades
+      @new = New.find(params[:id])
+      @new.destroy
+    end
+  end
+
+  def edit
+    @page_title = "Editar novedad"
+    @new = New.find(params[:id])
+  end
+
+  def update
+    if current_user.es_admin #solo el usuario admin puede editar novedades
+      @page_title = "Editar novedad"
+      @new = New.find(params[:id])
+    
+      if @new.update(news_params)
+        redirect_to news_index_path
+      else
+        render 'edit'
+      end
+    end
+  end
+
   private
 
   def news_params

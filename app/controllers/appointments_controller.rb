@@ -84,12 +84,13 @@ class AppointmentsController < ApplicationController
   def update_state
     @appointment = Appointment.find(params[:id])
     if @appointment.update(state: params[:appointment][:state], rejection_reason: params[:appointment][:rejection_reason])
-      flash[:notice] = "Se ha cargado el estado"
       redirect_to appointments_path
       if params[:appointment][:state] == 'rechazado'
+        flash[:notice] = "Se ha rechazado el estado"
         AppointmentMailer.rejected_appointment_email(@appointment).deliver_later
       end
       if params[:appointment][:state] == 'cancelado'
+        flash[:notice] = "Se ha cancelado el estado"
         AppointmentMailer.canceled_appointment_email(@appointment).deliver_later
       end
     else

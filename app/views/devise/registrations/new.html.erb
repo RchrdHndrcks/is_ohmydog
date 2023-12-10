@@ -1,63 +1,84 @@
-<h2>Sign up</h2>
+<style>
+  body {
+    background-color: white;
+  }
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  
-  
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-    <%= render_error_messages_for(resource, :name) %>
-  </div>
+  .form-container {
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2596be;
+    border: 3px solid #f8934f;
+    border-radius: 10px;
+  }
 
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-    <%= render_error_messages_for(resource, :last_name) %>
-  </div>
+  .error-field {
+    border: 2px solid red !important;
+  }
 
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-    <%= render_error_messages_for(resource, :address) %>
-  </div>
+  .error-message {
+    color: red;
+    margin-bottom: 5px;
+  }
+</style>
 
-  <div class="field">
-    <%= f.label :phone_number %><br>
-    <%= f.text_field :phone_number %>
-    <%= render_error_messages_for(resource, :phone_number) %>
-  </div>
+<div class="form-container">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-group' }) do |f| %>
 
-  <div class="field">
-    <%= f.label :identifier_number %><br>
-    <%= f.number_field :identifier_number, autofocus: true, autocomplete: "DNI" %>
-    <%= render_error_messages_for(resource, :identifier_number) %>
-  </div>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    <%= render_error_messages_for(resource, :email) %>
-  </div>
+    <div class="field">
+      <%= f.label :name, 'Nombre' %>
+      <%= f.text_field :name, class: "form-control #{'error-field' if resource.errors[:name].present?}", id: 'user_name' %>
+      <%= render_error_messages_for(resource, :name) %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %><br>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
-    <% end %><br>
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <%= render_error_messages_for(resource, :password) %>
-  </div>
+    <div class="field">
+      <%= f.label :last_name, 'Apellido' %>
+      <%= f.text_field :last_name, class: "form-control #{'error-field' if resource.errors[:last_name].present?}", id: 'user_last_name' %>
+      <%= render_error_messages_for(resource, :last_name) %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    <%= render_error_messages_for(resource, :password_confirmation) %>
-  </div>
+    <div class="field">
+      <%= f.label :address, 'Dirección' %>
+      <%= f.text_field :address, class: "form-control #{'error-field' if resource.errors[:address].present?}", id: 'user_address' %>
+      <%= render_error_messages_for(resource, :address) %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+    <div class="field">
+      <%= f.label :phone_number, 'Número de teléfono' %>
+      <%= f.text_field :phone_number, class: "form-control #{'error-field' if resource.errors[:phone_number].present?}", id: 'user_phone_number' %>
+      <%= render_error_messages_for(resource, :phone_number) %>
+    </div>
 
-<% end %>
+    <div class="field">
+      <%= f.label :identifier_number, 'Número de identificación' %>
+      <%= f.number_field :identifier_number, class: "form-control #{'error-field' if resource.errors[:identifier_number].present?}", id: 'user_identifier_number', autofocus: true, autocomplete: 'DNI' %>
+      <%= render_error_messages_for(resource, :identifier_number) %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="field">
+      <%= f.label :email, 'Correo electrónico' %>
+      <%= f.email_field :email, class: "form-control #{'error-field' if resource.errors[:email].present?}", id: 'user_email', autofocus: true, autocomplete: 'email' %>
+      <%= render_error_messages_for(resource, :email) %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, 'Contraseña' %>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
+      <% end %><br>
+      <%= f.password_field :password, class: "form-control #{'error-field' if resource.errors[:password].present?}", id: 'user_password', autocomplete: 'new-password' %>
+      <%= render_error_messages_for(resource, :password) %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation, 'Confirmar contraseña' %>
+      <%= f.password_field :password_confirmation, class: "form-control #{'error-field' if resource.errors[:password_confirmation].present?}", id: 'user_password_confirmation', autocomplete: 'new-password' %>
+      <%= render_error_messages_for(resource, :password_confirmation) %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Registrarse', class: 'btn btn-primary', id: 'user_signup_submit' %>
+    </div>
+  <% end %>
+</div>
