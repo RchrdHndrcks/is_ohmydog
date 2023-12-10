@@ -3,6 +3,7 @@ class ContactPostsController < ApplicationController
     before_action :check_admin, only: [:new, :create, :destroy]
 
     def index
+        @page_title = "Paseadores y Cuidadores"
         @contact_posts = ContactPost.all
     end
 
@@ -11,6 +12,7 @@ class ContactPostsController < ApplicationController
     end
 
     def new
+        @page_title = "Crear contacto"
         @contact_post = ContactPost.new
     end
 
@@ -56,6 +58,11 @@ class ContactPostsController < ApplicationController
     def contact_post_params
         params.require(:contact_post).permit(:name, :email, :phone_number, :role, :photo, :zone, :availability)
     end
+
+    def contact
+        # Lógica adicional si es necesario
+        redirect_to new_dog_walkers_sitters_contact_path(contact_post_id: params[:contact_post_id])
+      end
 
     def check_admin
         redirect_to root_path, alert: 'No tienes permiso para realizar esta acción.' unless current_user&.es_admin?

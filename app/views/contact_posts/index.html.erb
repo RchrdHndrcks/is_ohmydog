@@ -27,7 +27,7 @@
 
         <div class="contact-buttons">
           <% if !current_user&.es_admin? %>
-            <%= button_tag "Contactar", class: "button" %>
+            <%= link_to "Contactar", new_dog_walkers_sitters_contact_path(contact_post, contact_post_id: contact_post.id), class: "contact-btn"%>
           <% elsif current_user&.es_admin? %>
             <%= link_to "Editar", edit_contact_post_path(contact_post), class: "button" %>
             <%= button_to "Eliminar", contact_post_path(contact_post), method: :delete, class: "button delete-button", data: { confirm: '¿Estás seguro?' } %>

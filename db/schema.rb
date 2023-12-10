@@ -98,6 +98,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_024348) do
     t.text "mensaje"
   end
 
+  create_table "dog_walkers_sitters_contacts", force: :cascade do |t|
+    t.string "nombre"
+    t.string "email"
+    t.string "telefono"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "mensaje"
+  end
+
+  create_table "contact_posts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "role", default: "Paseador", null: false
+    t.string "zone"
+    t.string "availability"
+  end
+
   create_table "dogs", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
