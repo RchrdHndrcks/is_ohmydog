@@ -6,7 +6,6 @@
     <div class="form-group">
       <%= submit_tag "Buscar", class: "btn btn-primary search-button" %>
     </div>
-
     <% if params[:query].present? %>
       <% if @users.present? %>
         <div class="search-results">
@@ -24,6 +23,7 @@
                   <% end %>
                 </tr>
               </thead>
+
               <tbody>
                 <% @users.first(params[:rowsPerPage].to_i).each do |user| %>
                   <tr>
@@ -43,17 +43,18 @@
               </tbody>
             </table>
           </div>
-
-          <!-- Selector de cantidad de filas a mostrar -->
-          <div class="rows-per-page-container">
-            <label for="rowsPerPage">Mostrar filas:</label>
-            <%= select_tag "rowsPerPage", options_for_select([1, 2, 5, 10], params[:rowsPerPage].to_i), class: "form-control", onchange: "this.form.submit()" %>
-          </div>
-        </div>
-      <% else %>
-        <p class="no-results">No se encontraron usuarios.</p>
+        <% else %>
+          <p class="no-results">No se encontraron usuarios.</p>
       <% end %>
+    <% else %>
+      <p> Ingrese un DNI o email para buscar usuarios.</p>
     <% end %>
+    <!-- Selector de cantidad de filas a mostrar -->
+    <div class="rows-per-page-container">
+    <label for="rowsPerPage">Mostrar filas:</label>
+    <%= select_tag "rowsPerPage", options_for_select([1, 2, 5, 10], params[:rowsPerPage].to_i), class: "form-control", onchange: "this.form.submit()" %>
+    </div>
+</div>
   </div>
 <% end %>
 
