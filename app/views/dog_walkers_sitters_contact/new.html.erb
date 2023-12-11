@@ -1,36 +1,60 @@
 <!-- app/views/dog_walkers_sitters_contact/new.html.erb -->
 
-<div class="custom-dog-walkers_sitters_contact">
-  <h2>Contactar al Paseador/Cuidador</h2>
+<style>
+  .custom-dog-walkers_sitters_contact {
+    background-color: #2596be;
+    color: #fff; /* Color de texto blanco para contrastar con el fondo */
+    border: 6px solid #f8934f; /* Borde de color #f8934f */
+    border-radius: 10px; /* Bordes redondeados para un aspecto más suave */
+  }
 
-<%= form_with(model: @dog_walkers_sitters_contact, url: dog_walkers_sitters_contact_index_path, method: :post) do |form| %>
-  <!-- Agrega campos del formulario según tus necesidades -->
+  .form-group input {
+    background-color: #fff; /* Color de fondo blanco para los campos de entrada */
+    color: #000; /* Color de texto negro para contrastar con el fondo blanco */
+  }
 
-  <div class="form-field">
-    <%= form.hidden_field :post_creator_email, value: @post_creator_email %>
-    <%= form.hidden_field :contact_post_id, value: @post.id %>
+  .btn-primary {
+    background-color: #f8934f;
+    border-color: #f8934f;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card custom-dog-walkers_sitters_contact">
+        <div class="card-header">
+          <h2 class="text-center">Contactar al Paseador/Cuidador</h2>
+        </div>
+
+        <div class="card-body">
+          <%= form_with(model: @dog_walkers_sitters_contact, url: dog_walkers_sitters_contact_index_path, method: :post) do |form| %>
+            <div class="form-group">
+              <%= form.hidden_field :post_creator_email, value: @post_creator_email %>
+              <%= form.hidden_field :contact_post_id, value: @post.id %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :nombre, class: "font-weight-bold" %>
+              <%= form.text_field :nombre, class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :email, class: "font-weight-bold" %>
+              <%= form.email_field :email, class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :telefono, class: "font-weight-bold" %>
+              <%= form.text_field :telefono, class: "form-control", required: true %>
+            </div>
+
+            <div class="text-center">
+              <%= form.submit "Enviar mensaje", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-field">
-    <%= form.label :nombre %>
-    <%= form.text_field :nombre, required: true %>
-  </div>
-
-  <div class="form-field">
-    <%= form.label :email %>
-    <%= form.email_field :email, required: true %>
-  </div>
-
-  <div class="form-field">
-    <%= form.label :telefono %>
-    <%= form.text_field :telefono, required: true %>
-  </div>
-
-  <!-- El mensaje se establece en el controlador, ya que siempre será el mismo -->
-
-  <div class="actions">
-    <%= form.submit "Enviar mensaje", class: "btn btn-primary" %>
-  </div>
-  <% end %>
-
 </div>

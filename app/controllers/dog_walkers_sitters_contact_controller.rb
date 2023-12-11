@@ -14,7 +14,7 @@ class DogWalkersSittersContactController < ApplicationController
       end
       
       if @post.present?
-        @post_creator_email = User.find(@post.id).email
+        #@post_trabajador_email = User.find(@post.id).email
         @contact_post_id = @post.id
       end
     end
@@ -33,8 +33,8 @@ class DogWalkersSittersContactController < ApplicationController
   
       if @dog_walkers_sitters_contact.save
         # Envía el correo al creador del post de adopción
-        post_creator_email = @dog_walkers_sitters_contact.post_creator_email
-        DogWalkerMailer.contact_email(@dog_walkers_sitters_contact, post_creator_email, admin_emails).deliver_later
+        #post_trabajador_email = @dog_walkers_sitters_contact.contact_post_email
+        DogWalkerMailer.contact_email(@dog_walkers_sitters_contact, @contact_post.email, admin_emails).deliver_later
         redirect_to root_path, notice: "¡Correo electrónico enviado con éxito!"
       else
         render 'new'
